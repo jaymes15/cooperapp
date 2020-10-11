@@ -2,7 +2,6 @@
 
 /cooper/settings/local.py
 /cooper/settings/dev.py
-/cooper/settings/production.py
 /cooper/.env
 
 
