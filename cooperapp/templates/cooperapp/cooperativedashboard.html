@@ -1,0 +1,555 @@
+{% extends 'cooperapp/base.html' %}
+{% block contentheader %}
+    Investment DashBoard
+{% endblock %}
+ 
+{% block content %}
+				
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	let amount_input;
+function myChangeHandlerI(event){
+     amount_input = event.target.value + "00";
+     user_amountinput = event.target.value;
+      payWithPaystack();
+     
+  }
+
+ 
+
+
+  function payWithPaystack(){
+            var handler = PaystackPop.setup({
+              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              email: '{{ request.user.email }}',
+              amount: amount_input,
+             
+              metadata: {
+                 custom_fields: [
+                    {
+                       display_name: "Co_operative",
+                       variable_name: "Co_operative",
+                        value: "{{ user.cooperative_name.id }}",
+                     
+
+                        display_name: "User id",
+                        variable_name: "user_id",
+                        value: "{{ user.id }}"
+
+                        
+                      
+                    }
+                 ]
+              },
+              callback: function(response){
+                let transactionid = response.reference;
+
+                  alert('success. transaction ref is ' + response.reference);
+                  $('#ref').html(response.reference);
+                  {% if request.user.is_authenticated %}
+                  $.post("{% url 'cooperapp:cooperativepaymentinfo' %}",
+                                               {
+                                                  csrfmiddlewaretoken: "{{csrf_token}}",
+                                                  userid: "{{ request.user.id }}",
+                                                  transactionid: transactionid,
+                                                  amount :  user_amountinput,
+                                                  project_id: "{{ user.cooperative_name.id }}"
+                                                },
+                                                function(status,results){
+                                    						alert(results);
+                                                            location.replace("{% url 'cooperapp:allcopcontributionactiveproject' request.user.id %}");
+                                                                      });
+                   
+                 
+                 {% endif %}
+                 
+                 
+              },
+
+              onClose: function(){
+                  alert('window closed');
+
+              }
+            });
+            handler.openIframe();
+          }
+
+
+</script>
+
+	<br/>
+		<div class="container">
+			
+			<br/>
+			<div class="row">
+    			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+			      	<div class="card" >
+                <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+                      <h3>Co-operative Info</h3>
+                 </div>
+			 		 <ul class="list-group list-group-flush">
+             <li class="list-group-item" style="display:none">
+                      Cooperative id : <span id="cooperativeid">{{ user.cooperative_name.id }}</span>
+              </li>
+			    		<li class="list-group-item">
+			    			Co-operative name : {{ user.cooperative_name.company_name }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				Cooperative description : {{ user.cooperative_name.description  }}
+			    		</li>
+			    		
+			    		<li class="list-group-item">
+			    				City: {{ user.cooperative_name.city }}
+			    		</li>
+              <li class="list-group-item">
+                  address:{{ user.cooperative_name.address }}
+              </li>
+              <li class="list-group-item">
+                  phone number: {{ user.cooperative_name.phone_number }}
+              </li>
+			    		<li class="list-group-item">
+			    				membership fee : {{ user.cooperative_name.membership_fee }}
+			    		</li>
+			    		<br/>
+        	        
+						 <form action="{% url 'cooperapp:optoutofcopproject' user.id  request.user.id %}" method='POST' enctype="multipart/form-data">
+						                {% csrf_token %}
+
+						             {% if user.status == "disabled" %}
+						             <center>   
+						               <button type='submit' class='btn btn-danger' style="height:50px;margin-bottom: 20px" disabled>Opt out of Project</button>
+						               </center>
+                        {% endif %}
+                        {% if user.status == "requesting out" %}   
+                           <button type='submit' class='btn btn-danger'  style="height:50px;margin-bottom: 20px"  disabled>Opt out of Project</button>
+                        {% endif %}
+                        {% if user.status == "active" %}   
+                           <button type='submit' class='btn btn-danger'  style="height:50px;margin-bottom: 20px" >Opt out of Project</button>
+                        {% endif %}
+						 </form>  
+
+			    		</li>
+			  		</ul>
+				</div>
+				
+			    </div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" >
+           <div class="card" >
+              <ul class="list-group list-group-flush">
+                   <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+                      <h3>Savings</h3>
+                 </div>
+                    <li class="list-group-item">
+                                 wallet : <span id="savings" >{{cooperative.total_amount}}</span>
+                                   <form >
+            <input class="form-control" type='text' onchange= myChangeHandlerI(event) />
+            <br/>
+              <script src="https://js.paystack.co/v1/inline.js"></script> 
+              {% if user.status == "disabled" %}   
+             <button class="btn btn-info" style="width: 100%;" type="button"  onclick="payWithPaystack()"  disabled >Make Contribution</button>
+             {% endif %}
+
+             {% if user.status == "requesting out" %}   
+             <button class="btn btn-info" style="width: 100%;" type="button"  onclick="payWithPaystack()"  disabled >Make Contribution</button>
+             {% endif %}
+
+             {% if user.status == "active" %}   
+             <button class="btn btn-info" style="width: 100%;" type="button"  onclick="payWithPaystack()"  >Make Contribution</button>
+             {% endif %}
+          </form>
+                    </li>
+					</ul>
+   				 
+    			</div>
+    			 <div class="card" >
+    			 		
+	              <ul class="list-group list-group-flush">
+	                   <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+	                     	<h3>Withdrawal</h3>
+	                 </div>
+	                 <li class="list-group-item">
+						{% if result %}
+							
+						<input type="number" class="form-control" min="0" placeholder="Enter Account Number" onchange="getAccountNumber(event)" >
+						<br/>
+						<select onchange='getBankCode(event)' style="width:100%;height:40px;">
+							<option  value="----">----</option>
+							{% for bank in result %}
+								  <option value='{{bank.code}}'>{{bank.name}}</option>
+								  
+						  {% endfor %}
+						</select>
+						<br/>
+						<br/>
+						
+							<button   onclick='verify()' class="btn btn-info" style="width: 100%;">Verify Account</button>
+					
+							
+							<br/>
+							<br/>
+							<br/>
+							<div id="amount" style="display:none">
+								<input  class="form-control" type="number" min="0" onchange="getAmount(event)" />
+								<br/>
+								
+								<button class="btn btn-info" style="width: 100%;" onclick="transfer()">Credit Me!</button>
+								<br/>
+								<br/>
+							</div>	
+							
+							{% else %}
+									<h3>{{error}}</h3>
+
+							{% endif %}
+						</li>
+				</ul>
+					  			</div>
+
+								
+									
+							</div>	
+						</div>
+    {% if investments %}
+			         {% if userinvestment.count > 0 %}
+			                <div class="card" style="width:90%;margin-bottom: -10px" >
+			                             <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+			                                <h3>Investments</h3>
+			                              </div>
+			                  </div>            
+			                      
+			                  {% for user in investments %}
+			                    
+			                          {% for invest in userinvestment %}
+			                              
+			                      <div class="card" style="width:90%" >
+			                       
+			                          <ul class="list-group list-group-flush">
+			                            <li class="list-group-item" style="display:none">
+			                                Investment id : <span id="investmentid">{{ user.id }}</span>
+			                              </li>
+			                             <li class="list-group-item">
+			                                Investment name : {{ user.project_name }}
+			                              </li>
+			                              <li class="list-group-item">
+			                                  Investment description : {{ user.project_description  }}
+			                               </li>
+			                                 <li class="list-group-item">
+			                                       Duration: {{ user.project_duration}}
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       Start Date: {{ user.start_date }}
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       End Date: {{ user.end_date }}
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       ROI: {{ user.project_returns }}%
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       Unit Block Available: {{ user.project_unitblock_available }}
+			                                 </li>
+			                                  <li class="list-group-item">
+			                                       Cost Per Unit Block: <span  id ="cost_perunitblock">{{ user.project_cost_perunitblock }}</span>
+			                                 </li>
+			                                 {% if user.id == invest.investment_name.id %}
+			                                  <li class="list-group-item">
+			                                        Unit Block Purchased: {{invest.unitblock_purchased}}
+			                                 </li>
+			                                
+			                                 {% endif %}
+			              
+			                                </ul>
+			                                  <div class="card-footer" style="padding:20px">
+			                        		
+			                              {% if stat.status == "disabled" or stat.status == "requesting out"  %} 
+				                              {% if user.id == invest.investment_name.id %}
+				                                
+				                                
+				                                   <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block" disabled >Invested</button>
+				                                  {% else %}
+				                                   <form >
+				                                      <input type='text' onchange= myChangeHandler(event)  class= "form-control" placeholder="Please Enter Number Of Unit Block To Be Purchased"/> <br/>
+				                                      <script src="https://js.paystack.co/v1/inline.js"></script>  
+				                                      <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block " disabled>Submit </button>
+				                                      </form>
+				                                  {% endif %}
+				                         {% else  %} 
+				                         		{% if user.id == invest.investment_name.id %}
+				                                
+				                                
+				                                   <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block" disabled >Invested</button>
+				                                  {% else %}
+				                                   <form >
+				                                      <input type='text' onchange= myChangeHandler(event)  class= "form-control" placeholder="Please Enter Number Of Unit Block To Be Purchased"/> <br/>
+				                                      <script src="https://js.paystack.co/v1/inline.js"></script>  
+				                                      <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block " >Submit </button>
+				                                      </form>
+				                                  {% endif %}        
+			                              {% endif %}  
+
+			                               
+			                        </div>
+			                        </div>
+			                         <br/>
+			                         
+			                         
+			                         {% endfor %}
+			                         {% endfor %}
+			                        
+			    {% else %} 
+			    					 <div class="card" style="width:90%;margin-bottom: -10px" >
+			                             <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+			                                <h3>Investments</h3>
+			                              </div>
+			                  </div>            
+			                      
+			                  {% for user in investments %}
+			                    
+			                         
+			                              
+			                      <div class="card" style="width:90%" >
+			                       
+			                          <ul class="list-group list-group-flush">
+			                            <li class="list-group-item" style="display:none">
+			                                Investment id : <span id="investmentid">{{ user.id }}</span>
+			                              </li>
+			                             <li class="list-group-item">
+			                                Investment name : {{ user.project_name }}
+			                              </li>
+			                              <li class="list-group-item">
+			                                  Investment description : {{ user.project_description  }}
+			                               </li>
+			                                 <li class="list-group-item">
+			                                       Duration: {{ user.project_duration}}
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       Start Date: {{ user.start_date }}
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       End Date: {{ user.end_date }}
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       ROI: {{ user.project_returns }}%
+			                                 </li>
+			                                 <li class="list-group-item">
+			                                       Unit Block Available: {{ user.project_unitblock_available }}
+			                                 </li>
+			                                  <li class="list-group-item">
+			                                       Cost Per Unit Block: <span  id ="cost_perunitblock">{{ user.project_cost_perunitblock }}</span>
+			                                 </li>
+			                                 {% if user.id == invest.investment_name.id %}
+			                                  <li class="list-group-item">
+			                                        Unit Block Purchased: {{invest.unitblock_purchased}}
+			                                 </li>
+			                                
+			                                 {% endif %}
+			              
+			                                </ul>
+			                                  <div class="card-footer" style="padding:20px">
+			                        		
+			                              {% if stat.status == "disabled" or stat.status == "requesting out"  %} 
+				                              {% if user.id == invest.investment_name.id %}
+				                                
+				                                
+				                                   <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block" disabled >Invested</button>
+				                                  {% else %}
+				                                   <form >
+				                                      <input type='text' onchange= myChangeHandler(event)  class= "form-control" placeholder="Please Enter Number Of Unit Block To Be Purchased"/> <br/>
+				                                      <script src="https://js.paystack.co/v1/inline.js"></script>  
+				                                      <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block " disabled>Submit </button>
+				                                      </form>
+				                                  {% endif %}
+				                         {% else  %} 
+				                         		{% if user.id == invest.investment_name.id %}
+				                                
+				                                
+				                                   <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block" disabled >Invested</button>
+				                                  {% else %}
+				                                   <form >
+				                                      <input type='text' onchange= myChangeHandler(event)  class= "form-control" placeholder="Please Enter Number Of Unit Block To Be Purchased"/> <br/>
+				                                      <script src="https://js.paystack.co/v1/inline.js"></script>  
+				                                      <button type="button"  onclick="payWithPaystackInvestment()" class="btn btn-primary btn-block " >Submit </button>
+				                                      </form>
+				                                  {% endif %}        
+			                              {% endif %}  
+
+			                               
+			                        </div>
+			                        </div>
+			                         <br/>
+			                         
+			                         
+			                         {% endfor %}
+			                         
+			                        
+
+
+			        
+			    {% endif %}
+			         
+        
+        {% else %}
+          <h2 style="padding-left: 20px">No Avaliable Investments Has Been Created</h2>
+        {% endif %}
+        
+       
+		
+ 
+	 
+
+<script type="text/javascript">
+  let amount_input_investment;
+  let cost_perunitblock;
+  let numberOfUnitBought;
+  let investmentid;
+  let cooperativeid;
+
+myChangeHandler = (event) => {
+    numberOfUnitBought = event.target.value;
+    cost_perunitblock= $("#cost_perunitblock").text();
+    amount_input_investment = numberOfUnitBought*cost_perunitblock +"00";
+    
+  }
+
+
+function payWithPaystackInvestment(user_id){
+            investmentid= $("#investmentid").text();
+            cooperativeid= $("#cooperativeid").text();
+            console.log(investmentid);
+            var handler = PaystackPop.setup({
+              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              email: '{{ request.user.email }}',
+              amount: amount_input_investment,
+             
+              metadata: {
+                 custom_fields: [
+                    {
+                       display_name: "cooperative",
+                       variable_name: "cooperativeid",
+                        value: cooperativeid,
+
+                        display_name: "Investment",
+                        variable_name: "investmentid",
+                        value: investmentid,
+
+                        display_name: "User id",
+                        variable_name: "user_id",
+                        value: "{{ request.user.id }}",
+
+                        
+                      
+                    }
+                 ]
+              },
+              callback: function(response){
+                let transactionid = response.reference;
+
+                  alert('success. transaction ref is ' + response.reference);
+                  $.post("{% url 'cooperapp:cooperativeinvestment' %}",
+                        {
+                          csrfmiddlewaretoken: "{{csrf_token}}",
+                                                 userid: "{{ request.user.id }}",
+                                                 transactionid: transactionid,
+                                                 UnitBought: numberOfUnitBought,
+                                                 investmentid: investmentid,
+                                                 cooperativeid:cooperativeid
+                        },
+                        function(data, status){
+                                    
+                                    location.replace("{% url 'cooperapp:userprofile' %}");
+                                    });
+                                         
+                   
+               
+                 
+                 
+              },
+
+              onClose: function(){
+                  alert('window closed');
+
+              }
+            });
+            handler.openIframe();
+          }
+
+
+
+//withdrawal
+
+var bankcode;
+		var accountnumber;
+		var amount;
+		var walletamount;
+
+		getBankCode=(event)=>{
+
+			bankcode = event.target.value;
+
+
+		}
+
+
+		getAccountNumber=(event)=>{
+			accountnumber = event.target.value;
+
+		}
+
+		getAmount=(event)=>{
+			amount = event.target.value;
+		}
+
+		verify=()=>{
+			
+			if(bankcode != undefined && bankcode != "----" && accountnumber != "" && accountnumber != undefined){
+				 $.post("{% url 'cooperapp:checkaccount' %}",
+										  {
+										  	csrfmiddlewaretoken: "{{csrf_token}}",
+										    bankcode: bankcode,
+										    accountnumber: accountnumber
+										  },
+										  function(data, status){
+										    alert(`${data.data.account_name}\n${data.data.account_number}`);
+										    var dis = document.getElementById('amount');
+										    dis.style.display = 'inline-block';
+										   
+										  });
+			}
+			else{
+				alert('please fill');
+			}
+
+		}
+
+		transfer=()=>{
+			
+			walletamount = $("#savings").text();
+			
+			if(bankcode != undefined && bankcode != "----" && accountnumber != "" && accountnumber != undefined && amount !=undefined && amount != ""){
+						if(amount > walletamount){
+							alert("Over Withdrawal Not Possible");
+
+						}else{
+							$.post("{% url 'cooperapp:generate_receipt' %}",
+												  {
+												  	csrfmiddlewaretoken: "{{csrf_token}}",
+												    amount:amount
+												  },
+												  function(data, status){
+												    alert(data.message);
+												   
+												  });
+						}
+				 
+				}else{
+				alert('please fill');
+			}
+
+		}
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,137 @@
+
+
+{% extends 'cooperapp/base.html' %}
+
+ 
+<!--
+ <span>User-Name:{{ user.username }}</span> </p>
+  <p>    <span>First-Name:{{ user.first_name }}</span> </p>
+                    <p>   <span>Last-Name:  {{ user.last_name}}</span></p>
+
+                     <p>   <span>company name: {{ user.userprofile.company_name}} </span></p>
+                 
+                   
+                      <p>   <span>description: {{ user.userprofile.description}} </span></p>
+                 
+                      <p>   <span>city: {{ user.userprofile.city }}</span></p>
+              
+	              
+	                
+	   			
+                      
+                   
+                    	
+       				  <p>    <span>address: {{ user.userprofile.address }}</span></p>
+               
+{% if user.userprofile.user_role == "ajo" or user.userprofile.user_role == "co-operative" %}
+	<a href="{% url 'cooperapp:editcompanyprofile' %}" >Edit Profile</a>
+  <a href="{% url 'cooperapp:projectform' %}" >Add Project</a>
+  <a href="{% url 'cooperapp:projectbyuser' user.id %}" >view Projects</a>
+ {% else %} 
+  <a href="{% url 'cooperapp:editcompanyprofile' %}" >Edit Profile</a>
+  <a href="{% url 'cooperapp:allcontributionactiveproject' user.id %}" >view Contribution Projects</a>
+ {%endif%}
+-->
+
+
+
+{% block contentheader %}
+    Cooper User Profile
+{% endblock %}
+
+
+{% block content %}
+<br/>
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+        <center>
+          <div class="card" >
+            {% if  user.staffprofile.image %}
+               <img  class="card-img-top" src="{{ user.userprofile.image.url }}">
+              {% else %}
+                   <img src="../images/staff.jpg" alt="Card image cap">
+               {% endif %}
+           
+            <div class="card-body">
+            <h2 class="card-title">User-Name:{{ user.username }}</h2>
+            <h4 class="card-text">Description: {{ user.userprofile.description}}</h4>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">First-Name:{{ user.first_name }}</li>
+            <li class="list-group-item">Last-Name:  {{ user.last_name}}</li>
+            <li class="list-group-item">city: {{ user.userprofile.city }}</li>
+            <li class="list-group-item">
+                    {% if user.userprofile.user_role == "ajo" %}
+                         <a href="{% url 'cooperapp:editcompanyprofile' %}" >
+                            <button type="button" class="btn btn-primary">Edit Profile</button>
+                          </a>
+                          <a href="{% url 'cooperapp:projectform' %}" >
+                              <button type="button" class="btn btn-success">Add Project</button>
+                          </a>
+                          <a href="{% url 'cooperapp:projectbyuser' user.id %}" >
+                              <button type="button" class="btn btn-info">view Projects</button>
+                          </a>
+                     {% elif user.userprofile.user_role == "co-operative" %}  
+                           <!--   <a href="{% url 'cooperapp:editcompanyprofile' %}" >
+                            <button type="button" class="btn btn-primary">Edit Profile</button>
+                          </a> -->
+                          <a href="{% url 'cooperapp:cooperativeprojectform' %}" >
+                              <button type="button" class="btn btn-success">Add Project</button>
+                          </a> 
+                           <a href="{% url 'cooperapp:cooperativeprojectform' %}" >
+                              <button type="button" class="btn btn-info">view Projects</button>
+                          </a>  
+                    {% else %} 
+                          <!--  <a href="{% url 'cooperapp:editcompanyprofile' %}" >
+                            <button type="button" class="btn btn-primary">Edit Profile</button>
+                          </a>
+                          <a href="{% url 'cooperapp:allcontributionactiveproject' user.id %}" >
+                              <button type="button" class="btn btn-info">view AJo Projects</button></a>
+                              <br/>
+                              <br/>
+                             <a href="{% url 'cooperapp:allcopcontributionactiveproject' user.id %}" >
+                              <button type="button" class="btn btn-info">view Co-operative Projects</button></a>  -->
+                    {%endif%}
+                       
+
+            </li>
+            </ul>
+           
+          </div>
+        </center>
+      </div> 
+      {% if request.user.userprofile.user_role == "co-operative" or request.user.userprofile.user_role == "ajo" %}
+
+            <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+              <div class="card" style="width:86%">
+                 <div class="card-header" style="padding-top:10px;padding-left: 30px;">
+                      <h3>Update Cooperative Info</h3>
+                 </div>
+                 <div class="card-body" style="padding-left: 30px;">
+                  <form action="" method='POST' enctype="multipart/form-data" style="width:80%">
+                    {% csrf_token %}
+                    
+                    
+                    
+                    {{ u_form.as_p}}
+                    {{ p_form.as_p }}
+      
+                      <br/>
+
+                    <button type='submit'class='btn btn-success' style="width:100%">Submit</button>
+                    <br/>
+                     <br/>
+                  </form>
+                </div>
+
+
+      </div> 
+    </div>
+    {%endif%}
+</div>
+</div>
+
+
+
+{% endblock %}        

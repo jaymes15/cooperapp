@@ -1,0 +1,82 @@
+{% extends 'cooperapp/base.html' %}
+{% block contentheader %}
+   Investment Management
+{% endblock %}
+{% block content %}
+			<br/>
+			
+	 <div class="card" >
+                          <ul class="list-group list-group-flush">
+                             <li class="list-group-item">
+
+                                Investment name : {{ user.project_name }}
+                              </li>
+                              <li class="list-group-item">
+                                  Investment description : {{ user.project_description  }}
+                               </li>
+                                 <li class="list-group-item">
+                                       Duration: {{ user.project_duration}}
+                                 </li>
+                                 <li class="list-group-item">
+                                       Start Date: {{ user.start_date }}
+                                 </li>
+                                 <li class="list-group-item">
+                                       End Date: {{ user.end_date }}
+                                 </li>
+                                 <li class="list-group-item">
+                                       ROI: {{ user.project_returns }}%
+                                 </li>
+                                  <li class="list-group-item">
+                                       Unit Block Available: {{ user.project_unitblock_available }}
+                                 </li>
+                                  <li class="list-group-item">
+                                       Cost Per Unit Block: {{ user.project_cost_perunitblock }}
+                                 </li>
+                                 
+              
+                              
+              
+                                </ul>
+                            </div>
+	{% if investments %}
+
+			
+	<table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>User</th>
+	        <th>Unit Of Block Purchased</th>
+	        <th>Cost Per Unit Blcok</th>
+	        <th>Status</th>
+	        
+	        
+	        
+	        
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	{% for investment in  investments %}
+		      <tr>
+		        <td>{{investment.user}}</td>
+		        <td>{{investment.unitblock_purchased}}</td>
+		        <td>{{investment.investment_name.project_cost_perunitblock}}</td>
+		         <td>{{investment.status}}</td>
+		           
+		      
+		           
+		      </tr>
+		      {% endfor %}
+	      
+	    </tbody>
+	  </table>
+	  {% else %}
+	  		<center>
+			<h3>No Members</h3>
+			</center>	
+		{%endif%}
+
+			
+
+</div>
+
+{% endblock %}     

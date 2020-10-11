@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Coopeer</title>
+	
+		<link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/common/header.css' %}">
+		<link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/common/footer.css' %}">
+
+		{% block style_sheet %}
+	    {% endblock %}
+
+		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+			<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+	
+	</head>
+	<body>
+		<header>
+			<div class="cooper-logo">
+				
+				<img src="{% static 'cooperapp/assets/Group 756.svg' %}" /> 
+			</div>
+			<div class="nav pull-right" >
+				 <a href="#home" class="active">Home</a>
+				  <a href="#news">Contribution</a>
+				  <a href="#contact">Cooperative</a>
+				  <a href="#about">About</a>
+				  <a href="#about">Help</a>
+				  <a><button type="button" class="btn btn-success">Sign Up</button></a>
+			</div>	
+		</header>
+			{% block content %}
+	        {% endblock %}
+
+	    <footer>
+			<center>
+				  <a href="#home" class="active">FAQs</a>
+				  <a href="#news">Terms and Conditions</a>
+				  <a href="#contact">Cooperative</a>
+				  <a href="#about">Privacy Policy</a>
+				  <a href="#about">About</a>
+				  <br/><br/>
+				  <img src="../assets/Group 756.svg" /> 
+				  <p>Copyright © Date Name. All rights reserved.</p>
+			</center>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,233 @@
+ 
+{% extends 'cooperapp/common/sidebar.html' %}	
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/user-dashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <div class="user-activities">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="activities-card-cop">
+                                    <div class="activities-header">
+                                        <h3>COOPERATIVES</h3>
+                                    </div>
+                                    <div class="activities-body">
+                                        {% if user_projects %}
+                                          {% for project in user_projects %}  
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="activities-name">
+
+                                        
+                                        
+                                                        <h3>{{ project.cooperative_name.company_name }} </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="activities-amount">
+                                                        <h3>#100,000</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          {% endfor %}
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="activities-card-contribution">
+                                    <div class="activities-header">
+                                        <h3>CONTRIBUTION</h3>
+                                    </div>
+                                    <div class="activities-body">
+                                        {% if user_ajoprojects %}
+                                            {% for user in user_ajoprojects %}
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                        <div class="activities-name">
+                                                            <h3>{{ user.project_name.project_name }} </h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                        <div class="activities-amount">
+                                                            <h3>#100,000</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {%endif%}
+                                    </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="activities-card-investment">
+                                    <div class="activities-header">
+                                        <h3>INVESTMENTS</h3>
+                                    </div>
+                                    <div class="activities-body">
+                                        {% if user_investment %}
+                                            {% for user in user_investment %}   
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                        <div class="activities-name">
+                                                            <h3>{{ user.investment_name.project_name }}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                        <div class="activities-amount">
+                                                            <h3>{{user.unitblock_purchased}} Units Purchased</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="activities-card-savings">
+                                    <div class="activities-header">
+                                        <h3>SAVINGS</h3>
+                                    </div>
+                                    <div class="activities-body">
+                                        {% if user_savings %}
+                                            {% for user in user_savings %}  
+                                             <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="activities-name">
+                                                        <h3>{{ user.cooperative_name.company_name|truncatechars:20}}</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="activities-amount">
+                                                        <h3>{{ user.total_amount }} </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        {%endif%}
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock %}
+
+
+	<!-- <br/>
+            <div class="content">
+            <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-6">
+                        <div class="card">
+
+
+
+                            <div class="header">
+                                <h4 class="title">Cooperatives Account</h4>
+                            </div>
+                            <div class="content">
+                                {% if user_projects %}
+                                        {% for project in user_projects %}  
+                                    
+                                   {{ project.cooperative_name.company_name }}  | <a href="{% url 'cooperapp:cooperativedashboard'  project.cooperative_name.id  %}">
+                                Dashboard
+                            </a>    
+                                    <hr>
+                                    {% endfor %}
+                                        {%endif%}
+                                                        
+                            </div>
+                           
+                        </div>
+                    </div>
+
+              
+            
+             <div class="col-md-6">
+                        <div class="card">
+
+
+
+                            <div class="header">
+                                <h4 class="title">Ajo Account</h4>
+                            </div>
+                            <div class="content">
+                                {% if user_ajoprojects %}
+                                      {% for user in user_ajoprojects %}
+                                    
+                                   {{ user.project_name.project_name }}  <a href="{% url 'cooperapp:getcontributionactiveproject'  user.id  %}">Make Contribution
+                            </a>    
+                                    <hr>
+                                    {% endfor %}
+                                        {%endif%}
+                                                        
+                            </div>
+                           
+                        </div>
+                    </div>
+
+           </div>
+</div>
+
+<div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+
+
+
+                            <div class="header">
+                                <h4 class="title">Savings Account</h4>
+                            </div>
+                            <div class="content">
+                                {% if user_savings %}
+                                        {% for user in user_savings %}  
+                                    <p class="category">{{ user.cooperative_name.company_name|truncatechars:20}} Savings</p>
+                                    {{ user.cooperative_name.company_name|truncatechars:20}} | {{ user.total_amount }} 
+                                    <hr>
+                                    {% endfor %}
+                                        {%endif%}
+                                                        
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                 
+
+             
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="header">
+                                <h4 class="title">Investment Account</h4>
+                            </div>
+                            <div class="content">
+                                {% if user_investment %}
+                                    {% for user in user_investment %}   
+                                    <p class="category">{{ user.investment_name.project_name }}</p>
+                                    {{ user.cooperative_name.company_name|truncatechars:20}} | {{user.unitblock_purchased}} Units Purchased |{{ user.status }} 
+                                    <hr>
+                                    {% endfor %}
+                                        {%endif%}
+                                    
+                                                                
+                            </div>
+                           
+                        </div>
+                    </div>
+	      
+
+ -->

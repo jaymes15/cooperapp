@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+	font-family:'Lucida Sans Unicode', sans-serif;
+}
+
+</style>
+</head>
+<body>
+
+<h3>Welcome to Cooper - Your Rewarding Financial Partner.</h3>
+
+<div class="card">
+   
+  {% if copinvite %} 
+    <h4><b>You have been invited to Cooper by {{copinvite}}</b></h4> 
+  {%endif%}
+    <p>Cooper is a carefully designed financial tool for groups of individuals and business owners.</p> 
+    <p>Cooper is a Cooperatives and Ajo Contributions Management Platform.</p>
+    <p>Cooper is perform 4 functions for groups of Individuals and business owners:</p>
+    <ol>
+    	<li>Raise funds from their Cooperatives at rates far better than prevailing bank rates</li>
+    	<li>Save funds in their Cooperatives</li>
+    	<li>Invest in their Cooperative Projects</li>
+    	<li>Pool funds for their Ajo Contributions</li>
+    </ol>
+    <p>Cooper is your True Rewarding Financial Partner.</p>
+    <p>Create your Cooper account today and invite your friends and loved ones.</p>
+    <a href="http://cooperapp.pythonanywhere.com/"><button>Visit Us Today</button></a>
+  </div>
+</div>
+
+</body>
+</html> 	  
+
+

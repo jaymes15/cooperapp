@@ -1,0 +1,64 @@
+
+{% extends 'cooperapp/base.html' %}
+
+<!--
+ <span>User-Name:{{ user.username }}</span> </p>
+  <p>    <span>First-Name:{{ user.first_name }}</span> </p>
+                    <p>   <span>Last-Name:  {{ user.last_name}}</span></p>
+
+                     <p>   <span>company name: {{ user.userprofile.company_name}} </span></p>
+                 
+                   
+                      <p>   <span>description: {{ user.userprofile.description}} </span></p>
+                 
+                      <p>   <span>city: {{ user.userprofile.city }}</span></p>
+              
+	              
+	                
+	   			
+                      
+                   
+                    	
+       				  <p>    <span>address: {{ user.userprofile.address }}</span></p>
+
+
+
+               -->
+
+
+{% block contentheader %}
+    Cooper User Profile
+{% endblock %}
+
+
+{% block content %}
+     <br/>
+      <div class="container">
+      <center>
+        <div class="card" style="width: 50%;">
+          {% if  user.staffprofile.image %}
+             <img  class="card-img-top" src="{{ user.userprofile.image.url }}">
+            {% else %}
+                 <img src="../images/staff.jpg" alt="Card image cap">
+             {% endif %}
+         
+          <div class="card-body">
+          <h2 class="card-title">User-Name:{{ user.username }}</h2>
+          <h4 class="card-text">Description: {{ user.userprofile.description}}</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+          <li class="list-group-item">First-Name:{{ user.first_name }}</li>
+          <li class="list-group-item">Last-Name:  {{ user.last_name}}</li>
+          <li class="list-group-item">city: {{ user.userprofile.city }}</li>
+          </ul>
+         
+        </div>
+      </center>
+    </div> 
+
+
+
+
+
+{% endblock %}
+	

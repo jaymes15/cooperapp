@@ -1,0 +1,205 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends 'cooperapp/common/sidebar.html' %}
+
+
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/contributions.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+     
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <div class="main">
+                        <div class="title">
+                            <h3>AVAILABLE COOPERATIVES</h3>
+                        </div>
+                        <div class="contribution-grid">
+                             {% if projects %}
+                            <div class="row">
+                                 {% for user in projects %} 
+                                   {% if forloop.counter0|divisibleby:3 %}
+                                        </div><br><div class="row">
+                                    {% endif %}
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="card contribution-card" >
+                                        <img class="card-img-top contributions-image" src= "{% static 'cooperapp/assets/LRM_EXPORT_105958463692133_20191012_125636948-01@2x copy.png' %}" alt="Card image">
+
+                                        <div class="card bg-light ">
+                                            <div class="card-body contributions-name">
+                                                {%if user.user.userprofile.company_name %}
+                                                 <p>{{ user.user.userprofile.company_name }}</p>
+                                                {%else%}
+                                                    <p>Cooper Ajo</p>
+                                                {%endif%}
+                                            </div>
+                                         </div>
+                                      <div class="card-body contribution-card-body">
+                                            <p class="card-text contribution-card-body-min-amount">
+                                                FEE:
+                                            </p>
+                                            <p class="card-text contribution-card-body-amount">
+                                                #{{ user.user.userprofile.membership_fee }}
+                                                <span class="duration">
+                                                    {{ user.project_duration }}
+                                                    <br/>
+                                                     {{ user.start_date }} - {{ user.end_date }}
+                                           
+                                                </span>
+                                            </p>
+                                             <a href="{% url 'cooperapp:projectbyotheruser'  user.id  %}">
+                                                <button >Check Details</button>
+                                            </a>
+                                      </div>
+                                    </div>
+                                    
+
+                                </div>
+
+                                {% endfor%}
+                               
+                        </div>
+                        {%endif%}
+
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}
+
+<!-- 
+
+
+			<div class="content" style="margin-top: -40px">
+            <div class="container-fluid">
+              
+
+                <div class="row">
+              
+                        <div class="header">
+                                <h4 class="title"> Cooperatives in Cooper</h4>
+                            </div>
+                      --   <div class="col-md-12">
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control" placeholder="Search" value="Search">
+                                   
+                                </div>
+                            </div> --
+                          {% if projects %}
+					{% for user in projects %}     
+                        <div class="col-md-4">
+                                
+                            <div class="card">
+                                    
+                                    <div class="header" style="height: 60vh;">
+                                            <label>Name</label>
+                                            <p>{{ user.user.userprofile.company_name}}</p>
+                                            <label>Status</label>
+                                            <p> {{ user.user.userprofile.user_status }}</p>
+                                              <label>Duration</label>
+                                              <p> {{ user.project_duration }}</p>
+                                                <label>Membership fee</label>
+                                                <p> {{ user.user.userprofile.membership_fee }}</p>
+                                                
+                            
+                                             <p>    
+                                        {% if request.user.is_authenticated %}
+                                        	{% if user.user.userprofile.membership_fee != NONE %}
+
+                                            <a href="{% url 'cooperapp:cooperativeprojectbyotheruser'  user.id  %}">
+                                                <button class="btn btn-primary">View more</button>
+                                            </a>
+                                            {%endif%}
+                                        {% else %}
+                                            <a href="{% url 'cooperapp:signup' %}" >
+                                                <button type="button" class="btn btn-info">
+                                                        Sign up
+                                                </button>
+                                            </a>
+                                            <a href="{% url 'cooperapp:login' %}" >
+                                                <button type="button" class="btn btn-primary">
+                                                    login
+                                                </button>   
+                                            </a>
+                                        {% endif %} 
+                                                         </p>
+                                                </div>  
+
+    
+                                               
+                            </div>
+                            
+                </div>
+                {%endfor%}
+                {% else %}
+                     <h2>No Cooperative  Have Been Created Yet </h2>
+                {% endif %}
+            </div>
+            <br/>
+            <br/>
+           
+                
+       
+
+
+
+
+
+
+
+ -->

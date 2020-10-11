@@ -1,0 +1,346 @@
+.activities-card-cop .activities-header{
+	background: var(--unnamed-color-008f71) 0% 0% no-repeat padding-box;
+	background: #008F71 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #008F713B;
+	border-radius: 9px;
+	opacity: 1;
+	
+	margin-top: 30px;
+	padding: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	color:white;
+	padding-left: 30px;
+
+}
+
+.activities-card-cop .activities-header h3{
+	text-align: left;
+	font-family: 'Fredoka One', cursive;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+
+.activities-card-cop .activities-body{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F2FFFC 0% 0% no-repeat padding-box;
+	border-radius: 9px;
+	opacity: 1;
+
+	width: 100%;
+	padding-bottom: 30px;
+    
+}
+
+.activities-card-cop .activities-body .activities-name{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F2FFFC 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #008F713B;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left: 50px;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-cop .activities-body .activities-name h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bold;
+}
+
+
+.activities-card-cop .activities-body .activities-amount{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F2FFFC 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #008F713B;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left:50px;
+	width: 50%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-cop .activities-body .activities-amount h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bolder;
+}
+
+
+
+/*  Contribution Card design */
+
+
+.activities-card-contribution .activities-header{
+	background: var(--unnamed-color-008f71) 0% 0% no-repeat padding-box;
+	background: #660099 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #008F713B;
+	border-radius: 9px;
+	opacity: 1;
+	
+	margin-top: 30px;
+	padding: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	color:white;
+	padding-left: 30px;
+
+}
+
+.activities-card-contribution .activities-header h3{
+	text-align: left;
+	font-family: 'Fredoka One', cursive;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+
+.activities-card-contribution .activities-body{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5ECF9 0% 0% no-repeat padding-box;
+	border-radius: 9px;
+	opacity: 1;
+
+	width: 100%;
+	padding-bottom: 30px;
+    
+}
+
+.activities-card-contribution .activities-body .activities-name{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5ECF9 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #66009921;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left: 50px;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-contribution .activities-body .activities-name h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bold;
+}
+
+
+.activities-card-contribution .activities-body .activities-amount{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background:  #F5ECF9 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #66009921;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left:50px;
+	width: 50%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-contribution .activities-body .activities-amount h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bolder;
+}
+
+
+
+
+/*  Investment Card design */
+
+
+.activities-card-investment .activities-header{
+	background: var(--unnamed-color-008f71) 0% 0% no-repeat padding-box;
+	background: #006EF3 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #008F713B;
+	border-radius: 9px;
+	opacity: 1;
+	
+	margin-top: 30px;
+	padding: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	color:white;
+	padding-left: 30px;
+
+}
+
+.activities-card-investment .activities-header h3{
+	text-align: left;
+	font-family: 'Fredoka One', cursive;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+
+.activities-card-investment .activities-body{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5F9FF 0% 0% no-repeat padding-box;
+	border-radius: 9px;
+	opacity: 1;
+
+	width: 100%;
+	padding-bottom: 30px;
+    
+}
+
+.activities-card-investment .activities-body .activities-name{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5F9FF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #D3E4F9;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left: 50px;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-investment .activities-body .activities-name h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bold;
+}
+
+
+.activities-card-investment .activities-body .activities-amount{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5F9FF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #D3E4F9;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left:50px;
+	width: 50%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-investment .activities-body .activities-amount h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bolder;
+}
+
+
+/*  Savings Card design */
+
+
+.activities-card-savings .activities-header{
+	background: var(--unnamed-color-008f71) 0% 0% no-repeat padding-box;
+	background: #707070 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #008F713B;
+	border-radius: 9px;
+	opacity: 1;
+	
+	margin-top: 30px;
+	padding: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	color:white;
+	padding-left: 30px;
+
+}
+
+.activities-card-savings .activities-header h3{
+	text-align: left;
+	font-family: 'Fredoka One', cursive;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+
+.activities-card-savings .activities-body{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F6F6F6 0% 0% no-repeat padding-box;
+	border-radius: 9px;
+	opacity: 1;
+
+	width: 100%;
+	padding-bottom: 30px;
+    
+}
+
+.activities-card-savings .activities-body .activities-name{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5F9FF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #D3E4F9;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left: 50px;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-savings .activities-body .activities-name h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bold;
+}
+
+
+.activities-card-savings .activities-body .activities-amount{
+	background: var(--unnamed-color-f2fffc) 0% 0% no-repeat padding-box;
+	background: #F5F9FF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 3px 6px #D3E4F9;
+	border-radius: 9px;
+	opacity: 1;
+	margin-left:50px;
+	width: 50%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 12px;
+	margin-top: 20px;
+}
+
+.activities-card-savings .activities-body .activities-amount h3{
+	font-size: 15px;
+	font-family: Montserrat;
+	letter-spacing: 0px;
+	color: #707070;
+	opacity: 1;
+	font-weight: bolder;
+}

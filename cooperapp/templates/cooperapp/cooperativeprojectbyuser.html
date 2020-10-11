@@ -1,0 +1,86 @@
+{% extends 'cooperapp/base.html' %}
+<!--
+{% if user_projects %}
+	{% for user in user_projects %}	
+		<ul>
+			<li>project name : {{ user.project_name }}</li>
+			<li>project description : {{ user.project_description  }}</li>
+			<li>project contribution : {{ user.project_contribution }}</li>
+			<li>project distribution : {{ user.project_distribution }}</li>
+			<li>project duration : {{ user.project_duration }}</li>
+			<li>start date : {{ user.start_date }}</li>
+			<li>end date : {{ user.end_date }}</li>
+			<li>project returns : {{ user.project_returns  }}%</li>
+		</ul>
+				  <a href="{% url 'cooperapp:projectcontributor' user.id  request.user.id %}"  >View Contributors</a> 
+	{% endfor %}	
+{% else %}
+	<h2>No Project Has Been Created</h2>
+{% endif %}
+<hr/>
+-->
+
+
+{% block contentheader %}
+   List Of Projects
+{% endblock %}
+
+
+  {% block content %}
+			<br/>
+				{% if user_projects %}
+					{% for user in user_projects %}
+				<div class="card" >
+			 		 <ul class="list-group list-group-flush">
+			    		<li class="list-group-item">
+			    			project name : {{ user.project_name }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project description : {{ user.project_description  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    			Membership fee: {{ user.membership_fee }}
+			    		</li>
+			    		<!-- <li class="list-group-item">
+			    				project distribution : {{ user.project_distribution }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project duration : {{ user.project_duration }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				start date : {{ user.start_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				end date : {{ user.end_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project returns : {{ user.project_returns  }}%
+			    		</li> -->
+			    		
+			    		<li class="list-group-item">
+			    			<center>
+			    				<a href="{% url 'cooperapp:copprojectcontributor' user.id  request.user.id %}"  >
+			    				  <button type="button" class="btn btn-primary">View Members</button>
+			    				</a>  
+			    			</center>	
+			    		</li>
+			    		
+			  		</ul>
+				</div>
+				<br/>
+				<br/>
+				{% endfor %}
+				
+				{% else %}
+					<h2>No Project Has Been Created</h2>
+				{% endif %}
+				
+				
+		</div>	
+
+
+
+{% endblock %}     
+
+
+

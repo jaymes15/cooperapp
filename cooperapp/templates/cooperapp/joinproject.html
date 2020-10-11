@@ -1,0 +1,105 @@
+{% extends 'cooperapp/base.html' %}
+<!--
+<li>{{project.project_name.user.userprofile.company_name}} {{project.project_name.user.userprofile.user_status}}</li>
+		
+		<li>description: {{ project.project_name.user.userprofile.description }}</li>
+		<li>city: {{ project.project_name.user.userprofile.city }}</li>
+		<li>address: {{ project.project_name.user.userprofile.address }}</li>
+		<li>phone number: {{ project.project_name.user.userprofile.phone_number }}</li>
+		<li>project_name: {{project.project_name.project_name}}</li>
+		<li>project description: {{ project.project_name.project_description  }}</li>
+		<li>project distribution: {{ project.project_name.project_distribution}} </li>
+		<li>project contribution: {{ project.project_name.project_contribution  }}</li>
+		<li>project duration: {{ project.project_name.project_duration }}</li>
+		<li>start date: {{ project.project_name.start_date }}</li>
+		<li>end date: {{ project.project_name.end_date }}</li>
+		
+		<li>project_returns: {{ project.project_name.project_returns  }}%</li>
+
+		 <form action="{% url 'cooperapp:optoutofproject' project.project_name.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                
+            <button type='submit' class='btn btn-success log'><h4>Opt out of Project</h4></button>
+        </form> 
+	
+
+<h3>Contributors</h3>
+{% for contributor in project_contributors %}
+	{{contributor.user}}<br/>
+{% endfor %}
+-->	
+ 
+{% block content %}
+				
+				<div class="card" >
+			 		 <ul class="list-group list-group-flush">
+			    		<li class="list-group-item">
+			    			Company Name:{{project.project_name.user.userprofile.company_name}} {{project.project_name.user.userprofile.user_status}}
+			    		</li>
+			    		<li class="list-group-item">
+			    				company description:  {{ project.project_name.user.userprofile.description }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				city: {{ project.project_name.user.userprofile.city }}</
+			    		</li>
+			    		<li class="list-group-item">
+			    				address: {{ project.project_name.user.userprofile.address }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				phone number:{{ project.project_name.user.userprofile.phone_number }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project description: {{ project.project_name.project_description  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project contribution: {{ project.project_name.project_contribution  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project distribution: {{ project.project_name.project_distribution}}
+			    		</li>
+			    		<li class="list-group-item">
+								project duration: {{ project.project_name.project_duration }}			    		
+						</li>
+			    		<li class="list-group-item">
+			    				start date: {{ project.project_name.start_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				end date: {{ project.project_name.end_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    			<form action="{% url 'cooperapp:optoutofproject' project.project_name.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                						{% csrf_token %}
+                
+            						<button type='submit' class='btn btn-success log'><h4>Opt out of Project</h4></button>
+        					</form> 
+	
+			    		</li>
+			  		</ul>
+				
+				{% if project_contributors %}
+			
+					<h3>Contributors</h3>
+
+			<div class="row">
+	  				 
+	    			{% for contributor in project_contributors %}
+	    					{% if forloop.counter0|divisibleby:3 %}
+	        				</div><br><div class="row">
+	    			{% endif %}
+   			<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>
+     				
+					
+		  					{{contributor.user}}
+		  				    	</div>
+	    	{% endfor %}
+
+    
+ 		 </div>
+ 		 {% endif %}
+
+
+</div>
+				
+		</div>	
+			
+{% endblock %}	

@@ -1,0 +1,136 @@
+{% extends 'cooperapp/base.html' %}
+
+<!--
+		<ul>
+			<li>project name : {{ user.project_name }}</li>
+			<li>project description : {{ user.project_description  }}</li>
+			<li>project contribution : {{ user.project_contribution }}</li>
+			<li>project distribution : {{ user.project_distribution }}</li>
+			<li>project duration : {{ user.project_duration }}</li>
+			<li>start date : {{ user.start_date }}</li>
+			<li>end date : {{ user.end_date }}</li>
+			<li>project returns : {{ user.project_returns  }}%</li>
+		</ul>
+		<h3>Contributors</h3>
+		{% if project_contributors %}
+			{% for contributor in project_contributors %}
+					{{contributor.user}}<br/>
+			{% endfor %}
+		{% else %}
+			<p>No User has joined your project</p>	
+		{%endif%}	
+	
+<hr/>
+<h3>contributions</h3>
+{% if contributions %}
+			{% for contribution in  contributions %}
+				user : {{contribution.user}}<br/>
+				amount :	{{contribution.amount}}<br/>
+				week number :	{{contribution.week_num}}<br/>
+				Date :	{{contribution.date}}<br/>
+			{% endfor %}
+		{% else %}
+			<p>No User has joined your project</p>	
+		{%endif%}
+		-->	
+
+{% block contentheader %}
+    Ajo DashBoard
+{% endblock %}
+ {% block content %}
+			<br/>
+			<div class="container">
+				
+				<div class="card"  style="width:90%">
+			 		 <ul class="list-group list-group-flush">
+			    		<li class="list-group-item">
+			    			project name : {{ user.project_name }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project description : {{ user.project_description  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project contribution : {{ user.project_contribution }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project distribution : {{ user.project_distribution }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project duration : {{ user.project_duration }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				start date : {{ user.start_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				end date : {{ user.end_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project returns : {{ user.project_returns  }}
+			    		</li>
+			    		
+			    		<li class="list-group-item">
+			    				
+			    		</li>
+			    		
+			  		</ul>
+				</div>
+				<br/>
+				<br/>
+				
+			{% if project_contributors %}
+			<div class="container">
+					<h3>Contributors</h3>
+
+			<div class="row">
+	  				 
+	    			{% for contributor in project_contributors %}
+	    					{% if forloop.counter0|divisibleby:3 %}
+	        				</div><br><div class="row">
+	    			{% endif %}
+   			<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>
+     				
+					
+		  					{{contributor.user}}
+		  				    	</div>
+	    	{% endfor %}
+
+    
+ 		 </div>
+ 		 {% endif %}
+
+				
+				<br/>
+				<br/>
+	<h3>contributions</h3>
+	{% if contributions %}
+
+	<table class="table table-striped" style="width:90%">
+	    <thead>
+	      <tr>
+	        <th>User</th>
+	        <th>Amount</th>
+	        <th>Week Number</th>
+	        <th>Date</th>
+	        
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	{% for contribution in  contributions %}
+		      <tr>
+		        <td>{{contribution.user}}</td>
+		        <td>{{contribution.amount}}</td>
+		        <td>{{contribution.week_num}}</td>
+		        <td>{{contribution.date}}</td>
+		           
+		      </tr>
+		      {% endfor %}
+	      
+	    </tbody>
+	  </table>
+	  {% else %}
+			<p>No User has Made any contribution</p>	
+		{%endif%}
+
+</div>
+</div>
+{% endblock %}     

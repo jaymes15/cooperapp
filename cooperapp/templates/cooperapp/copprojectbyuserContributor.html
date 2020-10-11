@@ -1,0 +1,86 @@
+{% extends 'cooperapp/base.html' %}
+{% block contentheader %}
+   Member Management
+{% endblock %}
+{% block content %}
+			<br/>
+				
+			
+				
+			{% if project_contributors %}
+			<div class="container">
+					<h3>Members</h3>
+ 				<div class="card" style="padding:20px;width:90%" >
+                     <ul class="list-group list-group-flush">
+                           
+			<div class="row">
+	  				 
+	    			{% for contributor in project_contributors %}
+	    					{% if forloop.counter0|divisibleby:3 %}
+	        				</div><br><div class="row">
+	    			{% endif %}
+   			<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>
+     				
+					
+		  					{{contributor.user}}<br/>
+		  					{{contributor.status}}<br/>
+		  		{% if contributor.status == "requesting out" %} 			
+		  			<form action="{% url 'cooperapp:optoutofcopprojectadmin' contributor.cooperative_name.id  contributor.user.id%}" method='POST' enctype="multipart/form-data">
+						                {% csrf_token %}
+
+						            
+                           <button type='submit' class='btn btn-danger'>Opt out of Project</button>
+                       
+						 </form>
+						  {% endif %}  
+		  				    	</div>
+		  					
+	   	{% endfor %}
+	   	</ul> 
+</div>
+    
+ 		 </div>
+ 		 {% endif %}
+
+				
+				<br/>
+				<br/>
+	<div class="container">			
+	<h3>Savings</h3>
+	{% if contributions %}
+
+
+	<table class="table table-striped" style="width:90%">
+	    <thead>
+	      <tr>
+	        <th>User</th>
+	        <th>Amount</th>
+	        
+	        
+	        
+	        
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	{% for contribution in  contributions %}
+		      <tr>
+		        <td>{{contribution.user}}</td>
+		        <td>{{contribution.total_amount}}</td>
+		           
+		      
+		           
+		      </tr>
+		      {% endfor %}
+	      
+	    </tbody>
+	  </table>
+	  {% else %}
+			<p>No Savings</p>	
+		{%endif%}
+
+			
+
+</div>
+</div>
+
+{% endblock %}     

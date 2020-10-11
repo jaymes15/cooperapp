@@ -1,0 +1,342 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Cooper</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link   rel="stylesheet" href="{% static 'cooperapp/css/bootstrap.min.css' %}">
+
+    <!-- Animation library for notifications   -->
+     <link   rel="stylesheet" href="{% static 'cooperapp/css/animate.min.css' %}">
+
+
+    <!--  Light Bootstrap Table core CSS    -->
+   <link   rel="stylesheet" href="{% static 'cooperapp/css/light-bootstrap-dashboard.css' %}">
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+     <link   rel="stylesheet" href="{% static 'cooperapp/css/demo.css' %}">
+
+
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="{% static 'cooperapp/css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+      {% if not request.user.is_authenticated or request.user.userprofile.user_role == 'none' %}
+            <style>
+                .sidebar-wrapper{
+                    background-color:#66CAF9;
+                }
+                .logo {
+                    text-align:center;
+                    font-size:30px;
+                }
+                .logo a{
+                    color:white;
+
+                }
+
+            </style>
+    {% endif %}
+
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+
+    <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+
+        <div class="sidebar-wrapper">
+            <div class="logo">
+
+                <a class="" href="{% url 'cooperapp:index' %}">
+                    Cooper
+                        <!-- <img class="rounded " src="assets/img/coopericon.jpg" alt="" width="100" height="45"> -->
+                      </a>
+            </div>
+
+            <ul class="nav">
+                 {% if request.user.userprofile.user_role == 'none' %}
+                <li>
+                    <a href="{% url 'cooperapp:allcopcontributionactiveproject' request.user.id %}" >
+                        <i class="pe-7s-user"></i>
+                        <p>
+                                User Account
+                        </p>
+                    </a>
+                </li>
+                <li >
+                   <a href="{% url 'cooperapp:homepage' %}" >
+                        <i class="pe-7s-graph"></i>
+                        <p>
+                             Join Ajo Contribution
+
+                        </p>
+                    </a>
+                </li>
+
+                <li >
+                   <a href="{% url 'cooperapp:cooperatives' %}" >
+                        <i class="pe-7s-graph"></i>
+                       <p>Join Cooperative</p>
+                    </a>
+                </li>
+                {% endif %}
+
+
+
+                {% if request.user.is_authenticated %}
+                 {% if request.user.userprofile.user_role == 'co-operative' %}
+                  <li >
+                   <a href="{% url 'cooperapp:copprojectcontributor' request.user.id  %}" >
+                        <i class="pe-7s-graph"></i>
+                       <p>Member Management</p>
+                    </a>
+                </li>
+                <li >
+                   <a href="{% url 'cooperapp:cooperativeprojectform' %}" >
+                        <i class="pe-7s-graph"></i>
+                       <p>Investment Management</p>
+                    </a>
+                </li>
+                 <li>
+                    <a href="{% url 'cooperapp:admininvite' %}" >
+                        <i class="pe-7s-gym"></i>
+                        <p>Invite</p>
+                    </a>
+                </li>
+                {% endif %}
+                 {% endif %}
+
+                   {% if request.user.is_authenticated %}
+                 {% if request.user.userprofile.user_role == 'ajo' %}
+                 <!--  <li >
+                   <a href="{% url 'cooperapp:copprojectcontributor' request.user.id  %}" >
+                        <i class="pe-7s-graph"></i>
+                       <p>Member Management</p>
+                    </a>
+                </li> -->
+                <li >
+                   <a href="{% url 'cooperapp:projectform' %}" >
+                        <i class="pe-7s-graph"></i>
+                       <p>Ajo Management</p>
+                    </a>
+                </li>
+                 <li>
+                    <a href="{% url 'cooperapp:admininvite' %}" >
+                        <i class="pe-7s-gym"></i>
+                        <p>Invite</p>
+                    </a>
+                </li>
+                {% endif %}
+                 {% endif %}
+
+                {% if request.user.is_authenticated %}
+
+
+
+
+               {% if request.user.userprofile.user_role == 'none'  %}
+                <li>
+
+                     <a href="{% url 'cooperapp:requestajoadminverification' request.user.id %}" >
+                        <i class="pe-7s-note2"></i>
+                        <p>Start  Ajo </p>
+                    </a>
+                </li>
+                 <li>
+                    <a href="{% url 'cooperapp:requestcopadminverification' request.user.id %}" >
+
+                        <i class="pe-7s-news-paper"></i>
+                        <p>Start A Co-operative</p>
+                    </a>
+                </li>
+                {% endif %}
+
+
+
+
+                 {% endif %}
+                 {% if request.user.is_authenticated %}
+                    {% if request.user.userprofile.user_role == 'co-operative' or request.user.userprofile.user_role == 'ajo'%}
+                    <li>
+                    <a href="{% url 'cooperapp:fees' %}" >
+                        <i class="pe-7s-user"></i>
+                        <p>
+                                Fees
+                        </p>
+                    </a>
+                </li>
+                     <li>
+                    <a href="{% url 'cooperapp:userprofile' %}" >
+                        <i class="pe-7s-user"></i>
+                        <p>
+                                Settings
+                        </p>
+                    </a>
+                </li>
+                {% endif %}
+                {% endif %}
+
+
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"> {% block contentheader %} {% endblock %}</a>
+                            <!-- <p>XX Cooperative</p> -->
+                </div>
+                <div class="collapse navbar-collapse">
+
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <a href="index.html" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+                                <p class="hidden-lg hidden-md">Cooper</p>
+                            </a>
+                        </li>
+
+
+                        <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+                                <p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                            <li>
+                                   {% if not request.user.is_authenticated %}
+                            <a href="{% url 'cooperapp:signup' %}" >
+                                <button type="button" class="btn btn-info" style="position:absolute;top:-10px;left:-100px;">
+                                Sign up
+                            </button>
+                            </a>
+
+                        {% endif %}
+                    </li>
+
+ </ul>
+ <ul class="nav navbar-nav navbar-right">
+
+                        <li>
+                              {% if request.user.is_authenticated %}
+                            <form action="{% url 'cooperapp:logout' %}" method='POST' class="pull-right">
+                                 {% csrf_token %}
+                                 <button class="btn btn-danger" type='submit'>Log out</button>
+
+                            </form>
+                            {% endif %}
+                        </li>
+                        <li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+      {% block content %}
+        {% endblock %}
+
+        <footer class="footer" style="position: fixed;bottom: 0;width:90%">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="cooperatives.html">
+                                    Cooperatives on Cooper
+                                </a>
+                            </li>
+                            <li>
+                                <a href="aboutcooper.html">
+                                    About Us
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.cooper.com">Cooper</a>
+                    </p>
+                </div>
+            </footer>
+    </div>
+</div>
+
+
+</body>
+<!--   Core JS Files   -->
+    <script src="{% static 'cooperapp/js/jquery.3.2.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'cooperapp/js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+    <!--  Charts Plugin -->
+    <script src="{% static 'cooperapp/js/chartist.min.js' %}"></script>
+
+    <!--  Notifications Plugin    -->
+
+    <script src="{% static 'cooperapp/js/bootstrap-notify.js' %}"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="{% static 'cooperapp/js/light-bootstrap-dashboard.js' %}"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="{% static 'cooperapp/js/demo.js' %}"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('.datepicker').datepicker();
+
+            demo.initChartist();
+
+            $.notify({
+                icon: 'pe-7s-gift',
+                message: "Welcome to <b>Cooper</b> - Your Rewarding Financial Partner."
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+        });
+    </script>
+
+</html>

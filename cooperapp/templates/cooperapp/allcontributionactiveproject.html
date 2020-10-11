@@ -1,0 +1,116 @@
+
+{% extends 'cooperapp/base.html' %}
+ <!--
+
+ <a href="{% url 'cooperapp:allcontributionactiveprojectbyweek' user.id %}" >View Weekly Contribution Projects</a>
+<br/>
+<br/>
+<a href="{% url 'cooperapp:allcontributionactiveprojectbymonth' user.id %}" >View Monthly Contribution Projects</a>
+
+
+{% if user_projects %}
+	{% for user in user_projects %}	
+		<ul>
+			<li>project name : {{ user.project_name.project_name }}</li>
+			<li>project description : {{ user.project_name.project_description  }}</li>
+			<li>project contribution : {{ user.project_name.project_contribution }}</li>
+			<li>project distribution : {{ user.project_name.project_distribution }}</li>
+			<li>project duration : {{ user.project_name.project_duration }}</li>
+			<li>start date : {{ user.project_name.start_date }}</li>
+			<li>end date : {{ user.project_name.end_date }}</li>
+			<li>project returns : {{ user.project_name.project_returns  }}%</li>
+		</ul>
+				 
+        
+        {% if user.project_name.start_date  >= dat.date  %}
+        		{% if dat.date <= user.project_name.end_date  %}
+        	
+				 <form action="{% url 'cooperapp:makecontribution' user.project_name.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                
+            <button type='submit' class='btn btn-success log'><h4>Make Contribution</h4></button>
+	        </form>  
+	        {% else %}
+	         <h2> Project is closed</h2>
+	        {% endif %}
+        {% else %}
+        	 <form action="{% url 'cooperapp:optoutofproject' user.project_name.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                
+            <button type='submit' class='btn btn-success log'><h4>Opt out of Project</h4></button>
+        </form>   
+        {% endif %}
+	{% endfor %}	
+{% else %}
+	<h2>You've Not Joined Any Contribution yet </h2>
+{% endif %}
+<hr/>
+-->
+{% block contentheader %}
+   All Ajo Projects
+{% endblock %}
+ {% block content %}
+			<br/>
+				{% if user_projects %}
+					{% for user in user_projects %}	
+				<div class="card" >
+			 		 <ul class="list-group list-group-flush">
+			    		<li class="list-group-item">
+			    			project name : {{ user.project_name.project_name }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project description : {{ user.project_name.project_description  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project contribution : {{ user.project_name.project_contribution }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project distribution : {{ user.project_name.project_distribution }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project duration : {{ user.project_name.project_duration }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				start date : {{ user.project_name.start_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				end date : {{ user.project_name.end_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project returns : {{ user.project_name.project_returns  }}%
+			    		</li>
+			    		<li class="list-group-item">
+			    				{% if user.project_name.start_date  >= dat.date  %}
+        							{% if dat.date <= user.project_name.end_date  %}
+        	
+				 <form action="{% url 'cooperapp:makecontribution' user.project_name.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                
+            <button type='submit' class='btn btn-success '><h4>Make Contribution</h4></button>
+	        </form>  
+	        {% else %}
+	         <h2> Project is closed</h2>
+	        {% endif %}
+        {% else %}
+        	 <form action="{% url 'cooperapp:optoutofproject' user.project_name.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                
+            <button type='submit' class='btn btn-danger'><h4>Opt out of Project</h4></button>
+        </form>   
+        {% endif %}
+			    		</li>
+			  		</ul>
+				</div>
+				
+				
+		</div>	
+		{% endfor %}
+		{%endif%}
+
+
+	 
+
+
+
+	
+{% endblock %}

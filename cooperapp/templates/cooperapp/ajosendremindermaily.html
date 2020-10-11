@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+	font-family:'Lucida Sans Unicode', sans-serif;
+}
+
+</style>
+</head>
+<body>
+
+<h3>Hello {{contributor_name}}</h3>
+
+<p>It is that time of the month again to save with your friends again and help achieve your financial goals.</p>
+
+<p>Your contribution of N{{contribution_amount}} is due for {{ajoname}} contribution </p>
+
+<p>As you help your friends achieve their financial and life goals, they in return will help you achieve yours.</p>
+
+<p>Your Contribution to {{ajoname}} will reflect immediately in the pooled funds and Confirmation is sent to you.</p>
+
+<div class="card">
+    <a href="http://cooperapp.pythonanywhere.com/ajocontribution/{{projectid}}"><button>Make Contribution</button></a>
+  </div>
+</div>
+
+</body>
+</html> 	  
+
+

@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cooper</title>
+
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/common/sidebar.css' %}">
+        {% block style_sheet %}
+        {% endblock %}
+		
+		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+			<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+	
+	</head>
+	<body>
+		<div class="row">
+    		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 sidebar">
+    			<div class="sidebar-header">
+    				<center>
+    					<h3>Welcome,</h3>
+    					<h1>{{request.user.username}}</h1>
+    				</center>
+    					
+    			</div>
+    			<div class="sidebar-menu">
+
+    				<h4 class="select">
+                        <a href="{% url 'cooperapp:allcopcontributionactiveproject' request.user.id %}" >
+                            Dashboard
+                        </a>
+                    </h4>
+    				<h4>
+                        <a href="{% url 'cooperapp:homepage' %}" >
+                          Profile
+                        </a>
+                    </h4>
+    				<h4>
+                        <a href="{% url 'cooperapp:homepage' %}" >
+                            Notification
+                        </a>
+                    </h4>
+    				<h4>
+                        <a href="{% url 'cooperapp:homepage' %}" >
+                          Contribution
+                        </a>
+                    </h4>
+    				<h4>
+                        <a href="{% url 'cooperapp:cooperatives' %}" >
+                          Cooperative
+                        </a>
+                    </h4>
+    				<h4>
+                        <a href="{% url 'cooperapp:homepage' %}" >
+                            Settings
+                        </a>
+                    </h4>
+   					<h4>
+                        <a href="{% url 'cooperapp:homepage' %}" >
+                            Help
+                        </a>
+                    </h4>
+   					<center>
+   						<button type="button" class="btn btn-primary">Apply to be an Admin</button>
+    				</center>				
+    			</div>
+    		</div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+
+
+
+
+

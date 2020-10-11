@@ -1,0 +1,117 @@
+{% extends 'cooperapp/base.html' %}
+<!--
+<form action="" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+
+
+
+                  {{ a_form.as_p }}
+                  <button type='submit' class='btn btn-success log'><h4>Submit</h4></button>
+                </form>
+                -->
+
+{% block contentheader %}
+   Investment Management
+{% endblock %}
+{% block content %}
+
+<style type="text/css">
+  .datepicker, input[type=number]{
+    width:100%;
+    display: block;
+    border-radius: 4px;
+    border:0.1px solid;
+    height: 40px;
+  }
+</style>
+
+<br/>
+      <div class="container">
+        <div class="row">
+
+           <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+              {% if user_projects %}
+                  {% for user in user_projects %}
+
+                       <div class="card" >
+                          <ul class="list-group list-group-flush">
+                             <li class="list-group-item">
+
+                                Investment name : {{ user.project_name }}
+                              </li>
+                              <li class="list-group-item">
+                                  Investment description : {{ user.project_description  }}
+                               </li>
+                                 <li class="list-group-item">
+                                       Duration: {{ user.project_duration}}
+                                 </li>
+                                 <li class="list-group-item">
+                                       Start Date: {{ user.start_date }}
+                                 </li>
+                                 <li class="list-group-item">
+                                       End Date: {{ user.end_date }}
+                                 </li>
+                                 <li class="list-group-item">
+                                       ROI: {{ user.project_returns }}%
+                                 </li>
+                                  <li class="list-group-item">
+                                       Unit Block Available: {{ user.project_unitblock_available }}
+                                 </li>
+                                  <li class="list-group-item">
+                                       Cost Per Unit Block: {{ user.project_cost_perunitblock }}
+                                 </li>
+
+
+                                <li class="list-group-item">
+                                     <center>
+                                        <a href="{% url 'cooperapp:copprojectinvestors' user.user.id user.id  %}"  >
+                                      <button type="button" class="btn btn-primary">View Members</button>
+                                        </a>
+                                  </center>
+                                 </li>
+
+                                </ul>
+                            </div>
+        <br/>
+
+        {% endfor %}
+
+        {% else %}
+          <h2>No Investments Has Been Created</h2>
+        {% endif %}
+
+
+  </div>
+           <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
+            <div class="card">
+                 <div class="card-header" style="padding-top:10px;padding-left: 30px;">
+                      <h3>Register Investment</h3>
+                 </div>
+                 <div class="card-body" style="padding-left: 30px;">
+                    <form action="" method='POST' enctype="multipart/form-data" style="width:80%">
+                             {% csrf_token %}
+
+
+
+                             {{ a_form.as_p}}
+
+
+                        <br/>
+                         <button type='submit' class='btn btn-success' style="width:100%;">Submit</button>
+                         <br/>
+                     </form>
+                     <br/>
+                  </div>
+
+            </div>
+
+
+           </div>
+
+
+
+      </div>
+
+
+
+{% endblock %}

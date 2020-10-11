@@ -1,0 +1,128 @@
+.auth-page{
+	margin-top: 50px;
+	margin-left: 190px;
+}
+
+.auth-page .card{
+	
+	top: 190px;
+	left: 189px;
+	width: 340px;
+    
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 16px 16px 32px #1E1E1E26;
+    border-radius: 16px;
+    opacity: 1;
+    margin-left: 50px;
+    padding-bottom: 30px;
+
+}
+
+.auth-page .card-body{
+	top: 222px;
+	left: 206px;
+	width: 348px;
+
+	z-index: 3;
+}
+
+
+.auth-page .card-body .auth-field input[type=password] {
+  margin-top: 20px;
+  width: 70%;
+  padding: 12px 20px;
+  margin-right: 200px;
+  margin-left:20px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #747474;
+  z-index: 3;
+}
+
+
+
+.auth-page .card-body .auth-field input[type=text] {
+  margin-top: 20px;
+  width: 70%;
+  padding: 12px 20px;
+  margin-right: 200px;
+  margin-left:20px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #747474;
+  z-index: 3;
+}
+
+.auth-page .card-body .auth-field .auth-button-singin {
+	margin-top: 20px;
+	margin-right: 55px;
+	width: 70%;
+	height: 50px;
+	background: #660099 0% 0% no-repeat padding-box;
+	border-radius: 100px;
+	opacity: 1;
+	color:white;
+	border:0px; 
+	z-index: 3;
+
+}
+
+.auth-page .card-body .auth-field h3 {
+	text-align: left;
+	margin-left: 70px;
+   font: normal normal bold 22px/29px Montserrat;
+	letter-spacing: -0.11px;
+	color: #1C2126;
+	opacity: 1;
+	z-index: 3;
+
+}
+
+
+
+.auth-page .card-body .auth-field .auth-button-signup {
+	margin-top: 20px;
+	margin-right: 55px;
+	width: 70%;
+	height: 50px;
+	background: #159263 0% 0% no-repeat padding-box;
+	border-radius: 100px;
+	opacity: 1;
+	color:white;
+	border:0px; 
+
+}
+
+
+.auth-page .card-signin-details{
+	
+	position: relative;
+	left:-280px;
+	top:70px;
+	z-index: -1;
+	
+	
+	width: 334px;
+    height: 480px;
+	background: #008F71 0% 0% no-repeat padding-box;
+	box-shadow: 16px 16px 32px #1E1E1E26;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+    
+    opacity: 1;
+    margin-left: 50px;
+
+
+}
+
+.auth-page .card-signin-details img{
+	height: 100px;
+	margin-left: 50px;
+	margin-top: 30px;
+}
+
+.auth-page .card-signin-details .signin-details img{
+	height: 200px;
+	margin-left: 50px;
+	margin-top: 30px;
+}

@@ -1,0 +1,115 @@
+
+{% extends 'cooperapp/base.html' %}
+
+<!--	<li>{{ project.id }}</li>
+	<li>{{ request.user.id }}</li>-->
+
+	<!--
+	<li>{{ project.user.userprofile.company_name }} {{ project.user.userprofile.user_status }}</li>
+		
+		<li>description: {{ project.user.userprofileprofile.description }}</li>
+		<li>city: {{ project.user.userprofile.city }}</li>
+		<li>address: {{ project.user.userprofile.address }}</li>
+		<li>phone number: {{ project.user.userprofile.phone_number }}</li>
+		<li>project_name: {{ project.project_name }}</li>
+		<li>project description: {{ project.project_description  }}</li>
+		<li>project distribution: {{ project.project_distribution}} </li>
+		<li>project contribution: {{ project.project_contribution  }}</li>
+		<li>project duration: {{ project.project_duration }}</li>
+		<li>start date: {{ project.start_date }}</li>
+		<li>end date: {{ project.end_date }}</li>
+		
+		<li>project_returns: {{ project.project_returns  }}%</li>
+	
+	</ul>
+	  <a href="{% url 'cooperapp:otherusersprofile' pk=project.user.id  %}"  >See Profile</a> 
+	 {% if project.start_date  >= dat.dat %}
+	 		<h3>This Project Is Closed</h3>
+	 {%else%}
+	   <form action="{% url 'cooperapp:joinproject' project.id  request.user.id%}" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                
+            <button type='submit' class='btn btn-success log'><h4>Join Project</h4></button>
+        </form> 
+   {% endif %}     
+  -->
+
+
+  
+				{% block content %}
+     <br/>
+       <div class="container-fluid">
+				<div class="card" >
+			 		 <ul class="list-group list-group-flush">
+			    		<li class="list-group-item">
+			    			Company Name:{{ project.user.userprofile.company_name }}
+			    			{{project.user.userprofile.user_status }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				company description: {{ project.user.userprofileprofile.description }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				city: {{ project.user.userprofile.city }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				address: {{ project.user.userprofile.address }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				phone number: {{ project.user.userprofile.phone_number }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project description: {{ project.project_description  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project contribution: {{ project.project_contribution  }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				project distribution: {{ project.project_distribution}}
+			    		</li>
+			    		<li class="list-group-item">
+								project duration: {{ project.project_duration }}			    		
+						</li>
+			    		<li class="list-group-item">
+			    				start date: {{ project.start_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				end date: {{ project.end_date }}
+			    		</li>
+			    		<li class="list-group-item">
+			    			<div>
+			    			<a href="{% url 'cooperapp:otherusersprofile' pk=project.user.id  %}"  >
+			    					<button class="btn btn-primary">
+			    						See Company Profile
+			    					</button>	
+			    				</a> 
+			    				
+			    				
+			    				 {% if project.start_date  >= dat.dat %}
+	 								<h3>This Project Is Closed</h3>
+	 							{%else%}
+	  						 <form action="{% url 'cooperapp:joinproject' project.id  request.user.id%}" method='POST' enctype="multipart/form-data" class="pull-right">
+                						{% csrf_token %}
+                						
+            						<button type='submit' class='btn btn-success log'>Join Project</button>
+        					</form> 
+  						 {% endif %}   
+			    			
+			    		</div>
+			    		</li>
+			  		</ul>
+				</div>
+				
+				
+		</div>	
+
+<br/>
+<br/>
+
+
+
+
+
+
+{% endblock %}
+
+

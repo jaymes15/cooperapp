@@ -1,0 +1,94 @@
+
+{% extends 'cooperapp/base.html' %}
+{% block contentheader %}
+    Invitation Management
+{% endblock %}
+
+{% block content %}
+
+<!--   <form action='' method='POST' enctype="multipart/form-data" style="width:80%">
+                             {% csrf_token %}
+
+
+
+                         {{a_form.as_p}}
+
+
+                        <br/>
+                         <button type='submit' class='btn btn-success' style="width:100%;">Submit</button>
+                         <br/>
+                     </form> -->
+<br/>
+
+<div class="row" style="margin-left:30px;">
+    			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+			      	<div class="card" >
+                <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+                      <h3>People Invited</h3>
+                 </div>
+			 	<ul class="list-group list-group-flush">
+
+			 		<table class="table table-striped">
+	    <thead >
+	      <tr>
+	      	<th></th>
+	        <th>Mail</th>
+	         <th></th>
+	        <th>Status</th>
+	        <th></th>
+
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	{% if copadmin %}
+	    		{% for invite in copadmin %}
+
+
+	    	<tr>
+	    		<td></td>
+	    		<td>{{invite.receiever_mail}}</td>
+	    		<td></td>
+
+	    		<td>{{invite.status}}</td>
+	    		<td></td>
+
+	    	</tr>
+
+	    		{% endfor %}
+	    	{% endif %}
+
+
+	    </tbody>
+	  </table>
+
+
+
+              </ul>
+              </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" >
+           			<div class="card" style="padding-left:30px;padding-top: 10px;padding-bottom: 20px;" >
+             			 <ul class="list-group list-group-flush">
+             			 			<h3>Cooper Invite</h3>
+             			 			<br/>
+
+                      			 <form action='' method='POST' enctype="multipart/form-data" style="width:80%">
+			                             {% csrf_token %}
+
+
+
+			                         {{a_form.as_p}}
+
+
+			                        <br/>
+			                         <button type='submit' class='btn btn-success' style="width:100%;">Submit</button>
+			                         <br/>
+			                     </form>
+
+              			</ul>
+              		</div>
+              	</div>
+</div>
+
+
+{% endblock %}

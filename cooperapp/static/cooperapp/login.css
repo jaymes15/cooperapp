@@ -1,0 +1,115 @@
+nav{
+	font-family:'Lucida Sans Unicode', sans-serif;
+	color : brown;
+	margin-top : -50px;
+	padding-top : 5px;
+	padding-left : 40px;
+	padding-bottom : 15px;
+	
+	font-size : large;
+	position : fixed;
+	z-index : 3;
+	background-color : white;
+	width : 100%;
+	box-shadow: 10px 10px 5px grey;
+	}
+
+
+.dropbtn{
+	padding-left : 10px;
+	padding-right : 10px;
+}	
+	
+	
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown 
+.dropdown:hover .dropbtn {background-color: #3e8e41;}	
+*/
+
+.empty{
+   margin-top : 50px;
+   
+}
+
+.content{
+padding-top:60px;
+font-family:'Lucida Sans Unicode', sans-serif;	
+}
+
+.content h3{
+	color : #FFA500;
+	letter-spacing : 2px;
+	font-size:40px;
+}
+
+form{
+margin-top:50px;	
+}
+
+input[type=text],input[type=password],input[type=number], select {
+	
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea{
+  width: 50%;
+  height: 150px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+
+}
+
+input[type=submit] {
+  width: 50%;
+  background-color: brown;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn{
+  width:20%;
+  margin:5px;
+}

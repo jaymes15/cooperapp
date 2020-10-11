@@ -1,0 +1,87 @@
+
+{% extends 'cooperapp/base.html' %}
+
+
+{% block contentheader %}
+   Investment Management
+{% endblock %}
+	
+{% block content %}
+
+
+			<div class="content" style="margin-top: -40px">
+            <div class="container-fluid">
+              
+
+                <div class="row">
+              
+                        <div class="header">
+                                <h4 class="title"> Cooperatives in Cooper</h4>
+                            </div>
+                      <!--   <div class="col-md-12">
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control" placeholder="Search" value="Search">
+                                   
+                                </div>
+                            </div> -->
+                          {% if projects %}
+					{% for user in projects %}     
+                        <div class="col-md-4">
+                                
+                            <div class="card">
+                                    
+                                    <div class="header" style="height: 60vh;">
+                                            <label>Name</label>
+                                            <p>{{ user.user.userprofile.company_name}}</p>
+                                            <label>Status</label>
+                                            <p> {{ user.user.userprofile.user_status }}</p>
+                                              <label>Duration</label>
+                                              <p> {{ user.project_duration }}</p>
+                                                <label>Membership fee</label>
+                                                <p> {{ user.user.userprofile.membership_fee }}</p>
+                                                
+                            
+                                             <p>    
+                                        {% if request.user.is_authenticated %}
+                                            <a href="{% url 'cooperapp:cooperativeprojectbyotheruser'  user.id  %}">
+                                                <button class="btn btn-primary">View more</button>
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'cooperapp:signup' %}" >
+                                                <button type="button" class="btn btn-info">
+                                                        Sign up
+                                                </button>
+                                            </a>
+                                            <a href="{% url 'cooperapp:login' %}" >
+                                                <button type="button" class="btn btn-primary">
+                                                    login
+                                                </button>   
+                                            </a>
+                                        {% endif %} 
+                                                         </p>
+                                                </div>  
+
+    
+                                               
+                            </div>
+                            
+                </div>
+                {%endfor%}
+                {% else %}
+                     <h2>No Cooperative  Have Been Created Yet </h2>
+                {% endif %}
+            </div>
+            <br/>
+            <br/>
+           
+                
+       
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends 'cooperapp/base.html' %}
+
+{% block contentheader %}
+   Cooperative Info
+{% endblock %}
+	
+
+{% block content %}
+	
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	
+
+
+  function payWithPaystack(){
+            var handler = PaystackPop.setup({
+              key: 'pk_test_1ae21e3c162a5687048938e7b4afad6ab72180a4',
+              email: '{{ request.user.email }}',
+              amount: "{{ project.membership_fee }}" + "00",
+             
+              metadata: {
+                 custom_fields: [
+                    {
+                       display_name: "membership_fee",
+                       variable_name: "membership_fee",
+                        value: "{{ project.membership_fee }}",
+
+                        display_name: "cooperative_project",
+                       variable_name: "cooperative_project",
+                        value: "{{ project.id }}",
+                     
+
+                        display_name: "User id",
+                        variable_name: "user_id",
+                        value: "{{ user.id }}"
+
+                        
+                      
+                    }
+                 ]
+              },
+              callback: function(response){
+                let transactionid = response.reference;
+
+                  alert('success. transaction ref is ' + response.reference);
+                  $('#ref').html(response.reference);
+                  {% if request.user.is_authenticated %}
+                  $.post("{% url 'cooperapp:cooperativejoinproject' project.id  request.user.id  %}",
+                                               {
+                                                  csrfmiddlewaretoken: "{{csrf_token}}",
+                                                  userid: "{{ request.user.id }}",
+                                                  transactionid: transactionid,
+                                                  amount :  "{{ project.membership_fee }}",
+                                                  project_id: "{{ project.id }}"
+                                                },
+                                                function(status){
+                                    					
+                                                            location.replace("{% url 'cooperapp:userprofile' %}");
+                                                                      });
+                   
+                 
+                 {% endif %}
+                 
+                 
+              },
+
+              onClose: function(){
+                  alert('window closed');
+
+              }
+            });
+            handler.openIframe();
+          }
+
+
+</script>
+
+			<br/>
+				
+				<div class="card" style="margin-left: 20px;margin-right: 20px">
+			 		 <ul class="list-group list-group-flush">
+			    		<li class="list-group-item">
+			    			Cooperative Name:{{ project.company_name }}
+			    			{{project.user_status }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				Cooperative description: {{ project.description }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				city: {{ project.city }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				address: {{ project.address }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				phone number: {{ project.phone_number }}
+			    		</li>
+			    		
+			    		<li class="list-group-item">
+			    			Membership fee : {{ project.membership_fee }}
+			    		</li>
+			    		<li class="list-group-item">
+			    			<div>
+			    			
+			    				
+			    			<center>
+			    			
+	  						 <form >
+						
+						  <script src="https://js.paystack.co/v1/inline.js"></script>
+						  {% if confirm_status.status == "active"  %}	  
+						 <button class="btn btn-success"  type="button"  onclick="payWithPaystack()" 
+						  disabled>Joined Cooperative </button>
+						  {% else %}
+						  	<button class="btn btn-success"  type="button"  onclick="payWithPaystack()" 
+						  >Join Cooperative </button>
+						  {% endif %}
+						</form>
+						
+  						 </center>
+						
+			    		</div>
+			    		</li>
+			  		</ul>
+				</div>
+				
+				
+		</div>	
+
+
+{% endblock %}     
+
+

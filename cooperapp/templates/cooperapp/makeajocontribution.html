@@ -1,0 +1,145 @@
+{% extends 'cooperapp/base.html' %}
+{% block contentheader %}
+    Ajo DashBoard
+{% endblock %}
+ 
+{% block content %}
+				
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	
+  mySubmitHandler = (event) => {
+    event.preventDefault();
+    payWithPaystack();
+
+}
+
+
+  function payWithPaystack(){
+            var handler = PaystackPop.setup({
+              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              email: '{{ request.user.email }}',
+              amount: '{{user_projects.project_name.contribution_amount}}',
+             
+              metadata: {
+                 custom_fields: [
+                    {
+                       display_name: "Ajo",
+                       variable_name: "ajo",
+                        value: "{{ user_projects.project_name.id }}",
+                     
+
+                        display_name: "User id",
+                        variable_name: "user_id",
+                        value: "{{ request.user.id }}"
+
+                        
+                      
+                    }
+                 ]
+              },
+              callback: function(response){
+                let transactionid = response.reference;
+
+                  alert('success. transaction ref is ' + response.reference);
+                  $('#ref').html(response.reference);
+                  {% if request.user.is_authenticated %}
+                  $.post("{% url 'cooperapp:makeajocontribution' %}",
+                                               {
+                                                  csrfmiddlewaretoken: "{{csrf_token}}",
+                                                  userid: "{{ request.user.id }}",
+                                                  transactionid: transactionid,
+                                                  amount :  user_amountinput,
+                                                  project_id: "{{ user_projects.project_name.id }}"
+                                                },
+                                                function(status){
+                                    					             alert("success")
+                                                            location.replace("{% url 'cooperapp:allcopcontributionactiveproject' request.user.id %}");
+                                                                      });
+                   
+                 
+                 {% endif %}
+                 
+                 
+              },
+
+              onClose: function(){
+                  alert('window closed');
+
+              }
+            });
+            handler.openIframe();
+          }
+
+
+</script>
+
+	<br/>
+		<div class="container">
+			
+			<br/>
+			<div class="row">
+    			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+			      	<div class="card" >
+                <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+                      <h3>Co-operative Info</h3>
+                 </div>
+			 		 <ul class="list-group list-group-flush">
+             <li class="list-group-item" style="display:none">
+                      Cooperative id : <span id="cooperativeid">{{ user_projects.project_name.id }}</span>
+              </li>
+			    		<li class="list-group-item">
+			    			Ajo name : {{ user_projects.project_name.project_name }}
+			    		</li>
+			    		<li class="list-group-item">
+			    				 Description : {{ user_projects.project_name.project_description  }}
+			    		</li>
+			    		
+			    		<li class="list-group-item">
+			    				Contribution: {{ user_projects.project_name.project_contribution }}
+			    		</li>
+              <li class="list-group-item">
+                  Contribution Amount: {{ user_projects.project_name.contribution_amount }}
+              </li>
+              <li class="list-group-item">
+                  Start Date:{{ user_projects.project_name.start_date}}
+              </li>
+              <li class="list-group-item">
+                  End Date: {{ user_projects.project_name.end_date }}
+              </li>
+			    		
+			    		<br/>
+
+						 
+			    		</li>
+			  		</ul>
+				</div>
+				
+			    </div>
+				<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5" >
+           <div class="card" >
+              <ul class="list-group list-group-flush">
+                   <div class="card-header" style="padding-top:10px;padding-left: 10px;">
+                      <h3>Savings</h3>
+                 </div>
+                    <li class="list-group-item">
+                                 wallet : {{amount}}
+                                   <form >
+            <input class="form-control" type='text' value={{user_projects.project_name.contribution_amount}} disabled />
+            <br/>
+              <script src="https://js.paystack.co/v1/inline.js"></script> 
+            
+             <button class="btn btn-info" style="width: 100%;" type="button"  onclick="payWithPaystack()"  >Make Contribution</button>
+            
+          </form>
+                    </li>
+					
+   				 
+    			</div>
+  			</div>
+			
+				
+		</div>
+
+    {% endblock %}	

@@ -1,0 +1,124 @@
+{% extends 'cooperapp/common/header.html' %}
+
+        {% block style_sheet %}
+            {% load static %}
+            <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/signup.css' %}" />
+        {% endblock %}
+
+
+        {% block content %}
+            <center>
+                <div class='auth-page'>
+                  <div class="container">
+                      <div class="row">
+                        <div class="col-sm-6" >
+                            <div class="card">
+                            <div class="card-body">
+                              <div class="auth-field">
+                                <br />
+                                  <form method="POST"  action="">
+										{% csrf_token %}
+
+												{{ form.non_field_errors }}
+												<div class="form-group">
+													{{ form.username.errors }}
+													<label for="{{ form.username.id_for_label }}">Username:</label>
+												<p>	{{ form.username }} </p>
+												</div>
+												<div class="form-group">
+													{{ form.email.errors }}
+													<label for="{{ form.id_for_label }}">Email:</label>
+												<p>	{{ form.email }} </p>
+												</div>
+
+												<div class="form-group">
+													{{ form.password1.errors }}
+													<label for="{{ form.password1.id_for_label }}">Password:</label>
+												<p>	{{ form.password1 }}</p>
+												</div>
+												<div class="form-group">
+														{{ form.password2.errors }}
+														<label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+													<p>	{{ form.password2 }} </p>
+
+													<div class="form-group">
+													{{userstatus.user_role.errors }}
+													<label for="{{ userstatus.user_role.id_for_label }}">user_role:</label>
+													<p>{{ userstatus.user_role }}</p>
+												</div>
+													</div>
+											<button type="submit" class="auth-button-singin">Sign Up!</button>
+										</form>
+                                   	  <center>
+	   								  	<h3>Already A User?</h3>
+	   								  </center>
+
+	   								  <button class="auth-button-signup">Sign in</button>
+                                    
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card-signin-details">
+                          <div class="card-body-signin-details">
+                            <img src="{% static 'cooperapp/assets/Group 774.svg' %}" /> 
+                           
+
+                              <div class="signin-details">
+                                  <img src="{% static 'cooperapp/assets/Group 592.svg' %}" /> 
+                                  
+                              </div> 
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+          </center>
+           
+         
+        {% endblock %}
+
+
+
+
+
+
+  <!--
+<form method="POST"  action="">
+								{% csrf_token %}
+
+										{{ form.non_field_errors }}
+										<div class="form-group">
+											{{ form.username.errors }}
+											<label for="{{ form.username.id_for_label }}">Username:</label>
+										<p>	{{ form.username }} </p>
+										</div>
+										<div class="form-group">
+											{{ form.email.errors }}
+											<label for="{{ form.id_for_label }}">Email:</label>
+										<p>	{{ form.email }} </p>
+										</div>
+
+										<div class="form-group">
+											{{ form.password1.errors }}
+											<label for="{{ form.password1.id_for_label }}">Password:</label>
+										<p>	{{ form.password1 }}</p>
+										</div>
+										<div class="form-group">
+												{{ form.password2.errors }}
+												<label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+											<p>	{{ form.password2 }} </p>
+
+											<div class="form-group">
+											{{userstatus.user_role.errors }}
+											<label for="{{ userstatus.user_role.id_for_label }}">user_role:</label>
+											<p>{{ userstatus.user_role }}</p>
+										</div>
+											</div>
+
+
+		<button type="submit" class="btn btn-block">Sign Up!</button>
+	</form>
+	-->
