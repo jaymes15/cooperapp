@@ -1,13 +1,211 @@
-{% extends 'cooperapp/base.html' %}
-{% block contentheader %}
-    Ajo DashBoard
+{% extends 'cooperapp/common/sidebar.html' %} 
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/contributions.css' %}" />
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/user-contribution-dashboard.css' %}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+  
+
+  
+  mySubmitHandler = (event) => {
+    event.preventDefault();
+    payWithPaystack();
+
+}
+
+
+  function payWithPaystack(){
+            
+            
+            var handler = PaystackPop.setup({
+              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              email: '{{ request.user.email }}',
+              amount:  '{{ user_projects.project_name.contribution_amount }}',
+             
+              metadata: {
+                 custom_fields: [
+                    {
+                       display_name: "Ajo",
+                       variable_name: "ajo",
+                        value: "{{ user_projects.project_name.id }}",
+                     
+
+                        display_name: "User id",
+                        variable_name: "user_id",
+                        value: "{{ request.user.id }}"
+
+                        
+                      
+                    }
+                 ]
+              },
+              callback: function(response){
+                let transactionid = response.reference;
+
+                  alert('success. transaction ref is ' + response.reference);
+                  $('#ref').html(response.reference);
+                  {% if request.user.is_authenticated %}
+                  $.post("{% url 'cooperapp:makeajocontribution' %}",
+                                               {
+                                                  csrfmiddlewaretoken: "{{csrf_token}}",
+                                                  userid: "{{ request.user.id }}",
+                                                  transactionid: transactionid,
+                                                  amount :  user_amountinput,
+                                                  project_id: "{{ user_projects.project_name.id }}"
+                                                },
+                                                function(status){
+                                                           alert("success")
+                                                            location.replace("{% url 'cooperapp:allcopcontributionactiveproject' request.user.id %}");
+                                                                      });
+                   
+                 
+                 {% endif %}
+                 
+                 
+              },
+
+              onClose: function(){
+                  alert('window closed');
+
+              }
+            });
+            handler.openIframe();
+          }
+
+
+</script>
 {% endblock %}
- 
+
 {% block content %}
+
+
+
+
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="main">
+                            <div class="title">
+                                <h3>CONTRIBUTION</h3>
+                            </div>
+                            <div class="contributions-details">
+                                <div class="contributions-detail-header">
+                                    <h3>{{ user_projects.project_name.project_name }}</h3>
+                                </div>
+                                 <div class="contributions-detail-content">
+                                    <p>
+                                        {{ user_projects.project_name.project_description  }}
+                                        <br/>
+                                        Contribution amount: {{ user_projects.project_name.contribution_amount }}
+                                        <br/>
+                                        Start Date:{{ user_projects.project_name.start_date}}
+                                        <br/>
+                                        End Date: {{ user_projects.project_name.end_date }}
+                                        <div style="display:none">
+                                             Cooperative id : <span id="cooperativeid">{{ user_projects.project_name.id }}</span>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div class="contributions-detail-amount">
+                                    <p>
+                                        Current <br/>Amount:
+                                    </p>
+                                    <h1><span class="savings"> #{{amount}}</span></h1>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="title">
+                                <h3></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="space">
+                            <h3></h3>
+                        </div>
+                        <div class="contribution-form">
+                            <h3>Save to your account</h3>
+                            <input type="text"  value={{ user_projects.project_name.contribution_amount }}   disabled />
+                            <br/>
+                            <script src="https://js.paystack.co/v1/inline.js"></script> 
+                             <button class="contribution-form-button" {{status}} onclick="payWithPaystack()"  >Make Contribution</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>   
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 				
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+  let amount_input;
+  myChangeHandler = (event) => {
+     amount_input = event.target.value + "00";
+     user_amountinput = event.target.value
+     
+  }
+
 	
   mySubmitHandler = (event) => {
     event.preventDefault();
@@ -17,10 +215,12 @@
 
 
   function payWithPaystack(){
+            
+            
             var handler = PaystackPop.setup({
               key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
               email: '{{ request.user.email }}',
-              amount: '{{user_projects.project_name.contribution_amount}}',
+              amount:  {{ user_projects.project_name.contribution_amount }},
              
               metadata: {
                  custom_fields: [
@@ -123,10 +323,14 @@
                    <div class="card-header" style="padding-top:10px;padding-left: 10px;">
                       <h3>Savings</h3>
                  </div>
+
                     <li class="list-group-item">
                                  wallet : {{amount}}
                                    <form >
-            <input class="form-control" type='text' value={{user_projects.project_name.contribution_amount}} disabled />
+                                  
+            
+            <input  class="form-control" type='text' value={{ user_projects.project_name.contribution_amount }} {{status}} />
+            
             <br/>
               <script src="https://js.paystack.co/v1/inline.js"></script> 
             
@@ -142,4 +346,4 @@
 				
 		</div>
 
-    {% endblock %}	
+  	 -->

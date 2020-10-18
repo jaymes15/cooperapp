@@ -25,7 +25,11 @@
 
                                         
                                         
-                                                        <h3>{{ project.cooperative_name.company_name }} </h3>
+                                                        <h3>
+                                                            <a href="{% url 'cooperapp:cooperativedashboard'  project.cooperative_name.id  %}"> 
+                                                                {{ project.cooperative_name.company_name }} 
+                                                            </a>
+                                                        </h3>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -50,7 +54,13 @@
                                                 <div class="row">
                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                         <div class="activities-name">
-                                                            <h3>{{ user.project_name.project_name }} </h3>
+                                                            <h3>
+                                                                <a href="{% url 'cooperapp:getcontributionactiveproject'  user.project_name.id  %}">
+                                                                    
+                                                                    {{ user.project_name.project_name }} 
+                                                                    
+                                                                </a>
+                                                            </h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">

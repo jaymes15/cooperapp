@@ -112,6 +112,7 @@ def login_view(request):
 				return redirect(request.POST.get('next'))
 			else:
 				if request.user.userprofile.user_role == "none":
+
 					return redirect('cooperapp:allcopcontributionactiveproject',user_id=request.user.id)
 				elif request.user.userprofile.user_role == "ajo":
 					return redirect('cooperapp:projectform')
@@ -278,6 +279,7 @@ def allcontributionactiveproject(request,  user_id):
 
 @login_required(login_url="/login/")
 def getcontributionactiveproject(request,  project_id):
+
 	user_project = ProjectContributors.objects.filter(user_id = request.user.id)
 	user_projects = user_project.get(project_name = project_id)
 	savings = Contributions.objects.filter(user_id = request.user.id)
@@ -287,7 +289,11 @@ def getcontributionactiveproject(request,  project_id):
 		amount += int(save.amount)
 
 	dat = datetime.now()
-	context = {'user_projects': user_projects,"dat":dat,"amount":amount}
+	if user_projects.project_name.start_date <= dat.date():
+		status = ""
+	else:
+		status = "disabled"
+	context = {'user_projects': user_projects,'amount':amount,"status":status}
 	return render(request, 'cooperapp/makeajocontribution.html', context)	
 
 @login_required(login_url="/login/")
@@ -428,6 +434,7 @@ def cooperativejoinproject(request, project_id, user_id):
 
 @login_required(login_url="/login/")
 def allcopcontributionactiveproject(request,user_id):
+
 	user_projects = CooperativeProjectContributors.objects.filter(user_id = user_id)
 	user_investments = CooperativeInvestment.objects.filter(user = request.user.id)
 	user_investment =user_investments.filter(status="active")
