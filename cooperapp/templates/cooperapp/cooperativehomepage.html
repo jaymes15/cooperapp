@@ -1,12 +1,118 @@
 
-{% extends 'cooperapp/base.html' %}
+{% extends 'cooperapp/common/sidebar.html' %}
 
 
-{% block contentheader %}
-   Investment Management
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/contributions.css' %}" />
 {% endblock %}
-	
+
+
 {% block content %}
+     
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <div class="main">
+                        <div class="title">
+                            <h3>AVAILABLE COOPERATIVES</h3>
+                        </div>
+                        <div class="contribution-grid">
+                             {% if projects %}
+                            <div class="row">
+                                 {% for user in projects %} 
+                                   {% if forloop.counter0|divisibleby:3 %}
+                                        </div><br><div class="row">
+                                    {% endif %}
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="card contribution-card" >
+                                        <img class="card-img-top contributions-image" src= "{% static 'cooperapp/assets/LRM_EXPORT_105958463692133_20191012_125636948-01@2x copy.png' %}" alt="Card image">
+
+                                        <div class="card bg-light ">
+                                            <div class="card-body contributions-name">
+                                                {%if user.user.userprofile.company_name %}
+                                                 <p>{{ user.user.userprofile.company_name}}</p>
+                                                {%else%}
+                                                    <p>Cooper</p>
+                                                {%endif%}
+                                            </div>
+                                         </div>
+                                      <div class="card-body contribution-card-body">
+                                            <p class="card-text contribution-card-body-min-amount">
+                                                FEE:
+                                            </p>
+                                            <p class="card-text contribution-card-body-amount">
+
+                                               {%if user.user.userprofile.membership_fee %}
+                                                 # {{ user.user.userprofile.membership_fee }}
+                                                {% else %}
+                                                    pending
+                                                {% endif %}
+                                                <span class="duration">
+                                                    {{ user.project_duration }}
+                                                   
+                                           
+                                                </span>
+                                            </p>
+                                            {% if request.user.is_authenticated %}
+                                                {% if user.user.userprofile.membership_fee %}
+                                                        <a href="{% url 'cooperapp:cooperativeprojectbyotheruser'  user.id  %}">
+                                                        <button >Check Details</button>
+                                                        </a>
+                                                {% endif %}
+                                            {% else %}
+                                                <a href="{% url 'cooperapp:signup' %}" >
+                                                    <button type="button" class="btn btn-info">
+                                                            Sign up
+                                                    </button>
+                                                </a>
+
+                                                <a href="{% url 'cooperapp:login' %}" >
+                                                    <button type="button" class="btn btn-primary">
+                                                        login
+                                                    </button>   
+                                                </a>
+                                            {% endif %} 
+
+
+
+                                      </div>
+                                    </div>
+                                    
+
+                                </div>
+
+                                {% endfor%}
+                               
+                        </div>
+                        {%endif%}
+
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 
 
 			<div class="content" style="margin-top: -40px">
@@ -18,13 +124,13 @@
                         <div class="header">
                                 <h4 class="title"> Cooperatives in Cooper</h4>
                             </div>
-                      <!--   <div class="col-md-12">
+                        <div class="col-md-12">
                                 <div class="form-group">
                                     
                                     <input type="text" class="form-control" placeholder="Search" value="Search">
                                    
                                 </div>
-                            </div> -->
+                            </div> 
                           {% if projects %}
 					{% for user in projects %}     
                         <div class="col-md-4">
@@ -84,4 +190,5 @@
 
 
 
-{% endblock %}
+
+ -->

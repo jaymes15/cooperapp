@@ -140,3 +140,8 @@ EMAIL_HOST_USER = 'lagosverifynurse@gmail.com'
 EMAIL_HOST_PASSWORD = 'lagosverifynurse2019'
 
 
+
+
+
+
+

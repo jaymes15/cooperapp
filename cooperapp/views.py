@@ -20,11 +20,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 import time, threading
 
-#pk_test_1ae21e3c162a5687048938e7b4afad6ab72180a4
-#paystacksecretkey = "Bearer sk_test_1590017dabc1772e81fd0e246379f6e6ebcfac80"
-paystacksecretkey = "Bearer sk_live_8caf73c24429b9d6ca2be4b5f3d1cfa0d101c38f"
+from django.conf import settings
+
+
+
+
+paystack_public_key = settings.PAYSTACK_PUBLIC_KEY
+
+paystacksecretkey = settings.PAYSTACK_SECRET_KEY
 
 def index(request):
+	
 
 	return render(request,'cooperapp/index.html')
 
@@ -77,6 +83,7 @@ def ajosendremindermail():
 
 
 def homepage(request):
+	
 	projects = ProjectProfile.objects.all()
 	context = {'projects':projects}
 	return render(request,'cooperapp/homepage.html', context)
@@ -186,8 +193,7 @@ def editcompanyprofile(request):
 			context = {'p_form':p_form,'u_form':u_form}
 		return render(request,'cooperapp/editprofile.html',context)
 
-
-
+#
 @login_required(login_url="/login/")
 def projectform(request):
 	user_projects =	ProjectProfile.objects.filter(user_id=request.user.id)
@@ -293,7 +299,12 @@ def getcontributionactiveproject(request,  project_id):
 		status = ""
 	else:
 		status = "disabled"
-	context = {'user_projects': user_projects,'amount':amount,"status":status}
+	context = {
+				'user_projects': user_projects,
+				'amount':amount,
+				"status":status,
+				'paystack_public_key':paystack_public_key
+			  }
 	return render(request, 'cooperapp/makeajocontribution.html', context)	
 
 @login_required(login_url="/login/")
@@ -507,7 +518,8 @@ def cooperativedashboard(request,copproject_id):
 								"cooperative":cooperative,
 								'investments':investments,
 								"userinvestment":userinvestment,
-								'result':result
+								'result':result,
+								"paystack_public_key":paystack_public_key,
 								}
 					return render(request, 'cooperapp/cooperativedashboard.html', context)
 					

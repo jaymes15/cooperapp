@@ -20,7 +20,7 @@
 
   function payWithPaystack(){
             var handler = PaystackPop.setup({
-              key: 'pk_test_1ae21e3c162a5687048938e7b4afad6ab72180a4',
+              key: '{{paystack_public_key}}',
               email: '{{ request.user.email }}',
               amount: "{{ project.membership_fee }}" + "00",
              

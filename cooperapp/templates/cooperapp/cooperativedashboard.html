@@ -21,7 +21,7 @@ function myChangeHandlerI(event){
 
   function payWithPaystack(){
             var handler = PaystackPop.setup({
-              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              key: '{{paystack_public_key}}',
               email: '{{ request.user.email }}',
               amount: amount_input,
              
@@ -418,7 +418,7 @@ function payWithPaystackInvestment(user_id){
             cooperativeid= $("#cooperativeid").text();
             console.log(investmentid);
             var handler = PaystackPop.setup({
-              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              key: '{{paystack_public_key}}',
               email: '{{ request.user.email }}',
               amount: amount_input_investment,
              

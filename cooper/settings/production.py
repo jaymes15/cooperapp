@@ -11,3 +11,8 @@ DATABASES = {
         default=config('DATABASE_URL')
     )
 }
+
+
+PAYSTACK_PUBLIC_KEY	= config('PAYSTACK_PUBLIC_LIVE_KEY')
+
+PAYSTACK_SECRET_KEY  = config('PAYSTACK_SECRET_LIVE_KEY')

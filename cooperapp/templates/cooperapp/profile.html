@@ -1,47 +1,131 @@
+{% extends 'cooperapp/common/admin_sidebar.html' %}
 
 
-{% extends 'cooperapp/base.html' %}
-
- 
-<!--
- <span>User-Name:{{ user.username }}</span> </p>
-  <p>    <span>First-Name:{{ user.first_name }}</span> </p>
-                    <p>   <span>Last-Name:  {{ user.last_name}}</span></p>
-
-                     <p>   <span>company name: {{ user.userprofile.company_name}} </span></p>
-                 
-                   
-                      <p>   <span>description: {{ user.userprofile.description}} </span></p>
-                 
-                      <p>   <span>city: {{ user.userprofile.city }}</span></p>
-              
-	              
-	                
-	   			
-                      
-                   
-                    	
-       				  <p>    <span>address: {{ user.userprofile.address }}</span></p>
-               
-{% if user.userprofile.user_role == "ajo" or user.userprofile.user_role == "co-operative" %}
-	<a href="{% url 'cooperapp:editcompanyprofile' %}" >Edit Profile</a>
-  <a href="{% url 'cooperapp:projectform' %}" >Add Project</a>
-  <a href="{% url 'cooperapp:projectbyuser' user.id %}" >view Projects</a>
- {% else %} 
-  <a href="{% url 'cooperapp:editcompanyprofile' %}" >Edit Profile</a>
-  <a href="{% url 'cooperapp:allcontributionactiveproject' user.id %}" >view Contribution Projects</a>
- {%endif%}
--->
-
-
-
-{% block contentheader %}
-    Cooper User Profile
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/contribution_admin_dashboard.css' %}" />
+        
 {% endblock %}
 
 
 {% block content %}
-<br/>
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <header>
+                        <h3>PROFILE</h3>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 existing-contribution">
+                            <div class="title">
+                                <h3>PROFILE DETAILS</h3>
+                            </div>
+                           
+                                <div class="contribution-card">
+                                    <div class="contribution-card-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>User Name:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.username }}</h3>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>DESCRIPTION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                <h3>
+                                                 {{ user.userprofile.description}}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>First-Name:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.first_name }}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>Last-Name:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.last_name}}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>City:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>
+                                                    {{ user.userprofile.city }}
+                                                    
+                                                 </h3>
+                                            </div>
+                                        </div>
+
+                                       
+                                        
+                                        
+                                        
+                                    </div>  
+                                </div>
+                             
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 contribution-form">
+                            <header>
+                                <h3>
+                                   UPDATE PROFILE <br/> DETAILS
+                                </h3>
+                            </header>
+                            <form action="" method='POST' enctype="multipart/form-data" style="width:80%">
+                                  {% csrf_token %}
+
+                                  {{ u_form.as_p}}
+                                  {{ p_form.as_p }}
+                                  <center>
+
+                                    <button class="create-ajo-btn">Submit</button>
+                                  </center>
+                            </form>
+
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
       <div class="container">
          <div class="row">
             <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
@@ -73,9 +157,9 @@
                               <button type="button" class="btn btn-info">view Projects</button>
                           </a>
                      {% elif user.userprofile.user_role == "co-operative" %}  
-                           <!--   <a href="{% url 'cooperapp:editcompanyprofile' %}" >
+                           --   <a href="{% url 'cooperapp:editcompanyprofile' %}" >
                             <button type="button" class="btn btn-primary">Edit Profile</button>
-                          </a> -->
+                          </a> --
                           <a href="{% url 'cooperapp:cooperativeprojectform' %}" >
                               <button type="button" class="btn btn-success">Add Project</button>
                           </a> 
@@ -83,7 +167,7 @@
                               <button type="button" class="btn btn-info">view Projects</button>
                           </a>  
                     {% else %} 
-                          <!--  <a href="{% url 'cooperapp:editcompanyprofile' %}" >
+                          --  <a href="{% url 'cooperapp:editcompanyprofile' %}" >
                             <button type="button" class="btn btn-primary">Edit Profile</button>
                           </a>
                           <a href="{% url 'cooperapp:allcontributionactiveproject' user.id %}" >
@@ -91,7 +175,7 @@
                               <br/>
                               <br/>
                              <a href="{% url 'cooperapp:allcopcontributionactiveproject' user.id %}" >
-                              <button type="button" class="btn btn-info">view Co-operative Projects</button></a>  -->
+                              <button type="button" class="btn btn-info">view Co-operative Projects</button></a>  --
                     {%endif%}
                        
 
@@ -134,4 +218,4 @@
 
 
 
-{% endblock %}        
+         -->

@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cooper</title>
+
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/common/admin_sidebar.css' %}">
+        {% block style_sheet %}
+        {% endblock %}
+		
+		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+			<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+
+        <!--date picker -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+
+    <style type="text/css">
+      .datepicker, input[type=number]{
+        width:100%;
+        display: block;
+        border-radius: 4px;
+        border:0.1px solid;
+        height: 40px;
+      }
+    </style>
+    <script>
+      $(document).ready(function() {
+          $('.datepicker').datepicker();
+      });
+    </script>
+	
+	</head>
+	<body>
+		<div class="row">
+    		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 sidebar">
+    			<div class="sidebar-header">
+    				<center>
+    					<h3>Welcome,</h3>
+    					<h1>{{request.user.username}}</h1>
+    				</center>
+    					
+    			</div>
+    			<div class="sidebar-menu">
+
+    				
+    				{% if request.user.is_authenticated %}
+                        {% if request.user.userprofile.user_role == 'co-operative' %}
+                          <h4 >
+                               <a href="{% url 'cooperapp:copprojectcontributor' request.user.id  %}" >
+                                    
+                                   <p>Member Management</p>
+                                </a>
+                            </h4>
+                            <h4 >
+                               <a href="{% url 'cooperapp:cooperativeprojectform' %}" >
+                                   
+                                   <p>Investment Management</p>
+                                </a>
+                            </h4>
+                             <h4>
+                                <a href="{% url 'cooperapp:admininvite' %}" >
+                                    
+                                    <p>Invite</p>
+                                </a>
+                            </h4>
+                        {% endif %}
+                       
+
+                          
+                        {% if request.user.userprofile.user_role == 'ajo' %}
+                         <!--  <li >
+                           <a href="{% url 'cooperapp:copprojectcontributor' request.user.id  %}" >
+                                <i class="pe-7s-graph"></i>
+                               <p>Member Management</p>
+                            </a>
+                        </li> -->
+                            <h4 >
+                               <a href="{% url 'cooperapp:projectform' %}" >
+                                    
+                                   <p>Ajo Management</p>
+                                </a>
+                            </h4>
+                             <h4>
+                                <a href="{% url 'cooperapp:admininvite' %}" >
+                                   
+                                    <p>Invite</p>
+                                </a>
+                            </h4>
+                        {% endif %}
+                        <h4 >
+                               <a href="{% url 'cooperapp:userprofile' %}" >
+                                    
+                                   <p>Settings</p>
+                                </a>
+                            </h4>
+                    {% endif %}
+
+
+
+		
+    			</div>
+    		</div>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('.datepicker').datepicker();
+        </script>
+    </body>
+</html>
+
+    

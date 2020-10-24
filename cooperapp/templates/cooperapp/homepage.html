@@ -39,7 +39,12 @@
                                                 Amount:
                                             </p>
                                             <p class="card-text contribution-card-body-amount">
-                                                #15,000
+
+                                               {%if user.contribution_amount %}
+                                                 # {{ user.contribution_amount }}
+                                                {% else %}
+                                                    pending
+                                                {% endif %}
                                                 <span class="duration">
                                                     {{ user.project_duration }}
                                                     <br/>

@@ -1,5 +1,149 @@
-{% extends 'cooperapp/base.html' %}
+{% extends 'cooperapp/common/admin_sidebar.html' %}
+
+
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/contribution_admin_dashboard.css' %}" />
+        
+{% endblock %}
+
+
+{% block content %}
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <header>
+                        <h3>COOPERATIVE MANAGEMENT</h3>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 existing-contribution">
+                            <div class="title">
+                                <h3>CREATED INVESTMENT</h3>
+                            </div>
+                            {% if user_projects %}
+                              {% for user in user_projects %}
+                                <div class="contribution-card">
+                                    <div class="contribution-card-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>Name:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_name }}</h3>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>DESCRIPTION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                <h3>
+                                                 {{ user.project_description  }}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>DURATION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>
+                                                   {{ user.project_duration}}
+                                                    <br/>
+                                                   {{ user.start_date }} - {{ user.end_date }}
+                                                 </h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>RETURNS:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_returns }}%</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>UNIT BLOCK AVALIABLE:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_unitblock_available }}</h3>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>COST PER UNIT BLOCK:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_cost_perunitblock }}</h3>
+                                            </div>
+                                        </div>
+
+                                        <center>
+                                              <a href="{% url 'cooperapp:copprojectinvestors' user.user.id user.id  %}"  >
+
+                                              <button class="contributors">View Members</button>
+                                            </a>
+                                        </center>
+                                        
+                                    </div>  
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                               <h2>No Investment Has Been Created</h2>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 contribution-form">
+                            <header>
+                                <h3>
+                                    Register New <br/> Investment
+                                </h3>
+                            </header>
+                            <form action="" method='POST' enctype="multipart/form-data" style="width:80%">
+                                  {% csrf_token %}
+
+                                  {{ a_form.as_p}}
+                                  <center>
+
+                                    <button class="create-ajo-btn">Submit</button>
+                                  </center>
+                            </form>
+
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+{% endblock %}
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--
+--
 <form action="" method='POST' enctype="multipart/form-data">
                 {% csrf_token %}
 
@@ -8,12 +152,9 @@
                   {{ a_form.as_p }}
                   <button type='submit' class='btn btn-success log'><h4>Submit</h4></button>
                 </form>
-                -->
+                --
 
-{% block contentheader %}
-   Investment Management
-{% endblock %}
-{% block content %}
+
 
 <style type="text/css">
   .datepicker, input[type=number]{
@@ -114,4 +255,4 @@
 
 
 
-{% endblock %}
+ -->

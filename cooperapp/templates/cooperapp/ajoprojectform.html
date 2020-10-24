@@ -1,20 +1,189 @@
-{% extends 'cooperapp/base.html' %}
-<!--
-<form action="" method='POST' enctype="multipart/form-data">
-                {% csrf_token %}
+{% extends 'cooperapp/common/admin_sidebar.html' %}
 
 
+{% block style_sheet %}
+    {% load static %}
+        <link   type="text/css" rel="stylesheet" href="{% static 'cooperapp/css/contribution_admin_dashboard.css' %}" />
+        <!--date picker -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
-                  {{ a_form.as_p }}
-                  <button type='submit' class='btn btn-success log'><h4>Submit</h4></button>
-                </form>
-                -->
 
-{% block contentheader %}
-   Ajo Management
+    <style type="text/css">
+      .datepicker, input[type=number]{
+        width:100%;
+        display: block;
+        border-radius: 4px;
+        border:0.1px solid;
+        height: 40px;
+      }
+    </style>
 {% endblock %}
-{% block content %}
 
+
+{% block content %}
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <header>
+                        <h3>CONTRIBUTION MANAGEMENT</h3>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 existing-contribution">
+                            <div class="title">
+                                <h3>CREATED COOPERATIVES</h3>
+                            </div>
+                            {% if user_projects %}
+                              {% for user in user_projects %}
+                                <div class="contribution-card">
+                                    <div class="contribution-card-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>Name:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_name }}</h3>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>DESCRIPTION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                <h3>
+                                                 {{ user.project_description  }}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>CONTRIBUTION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_contribution }}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>DISTRIBUTION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_distribution }}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>DURATION:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>
+                                                    {{ user.project_duration }}
+                                                    <br/>
+                                                    {{ user.start_date }} - {{ user.end_date }}
+                                                 </h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>RETURNS:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.project_returns  }}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 content-title">
+                                                <h3>CONTRIBUTION <br/> AMOUNT:</h3>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 content-body">
+                                                 <h3>{{ user.contribution_amount  }}</h3>
+                                            </div>
+                                        </div>
+                                        <center>
+                                             <a href="{% url 'cooperapp:projectcontributor' user.id  request.user.id %}"  >
+
+                                              <button class="contributors">VIEW CONTRIBUTORS</button>
+                                            </a>
+                                        </center>
+                                        
+                                    </div>  
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                               <h2>No Contribution Has Been Created</h2>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 contribution-form">
+                            <header>
+                                <h3>
+                                    Register New <br/> Contribution
+                                </h3>
+                            </header>
+                            <form action="" method='POST' enctype="multipart/form-data" style="width:80%">
+                                  {% csrf_token %}
+
+                                  {{ a_form.as_p}}
+                                  <center>
+
+                                    <button class="create-ajo-btn">Submit</button>
+                                  </center>
+                            </form>
+
+                            
+                        </div>
+                    </div>
+
+                </div>
+
+{% endblock %}
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <style type="text/css">
   .datepicker, input[type=number]{
     width:100%;
@@ -59,6 +228,11 @@
                   project returns : {{ user.project_returns  }}
               </li>
               
+              <li class="list-group-item">
+                  contribution amount : {{ user.contribution_amount  }}
+              </li>
+              
+
               <li class="list-group-item">
                 <center>
                   <a href="{% url 'cooperapp:projectcontributor' user.id  request.user.id %}"  >
@@ -117,4 +291,4 @@
 
 
 
-{% endblock %}
+ -->

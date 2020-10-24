@@ -1,3 +1,4 @@
+
 {% extends 'cooperapp/common/sidebar.html' %} 
 {% block style_sheet %}
     {% load static %}
@@ -20,9 +21,9 @@
             
             
             var handler = PaystackPop.setup({
-              key: 'pk_live_26c180c7f22bc53f6ac9284671bfb87d71dc0b33',
+              key: '{{paystack_public_key}}',
               email: '{{ request.user.email }}',
-              amount:  '{{ user_projects.project_name.contribution_amount }}',
+              amount:  '{{ user_projects.project_name.contribution_amount }}'+ "00",
              
               metadata: {
                  custom_fields: [
