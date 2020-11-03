@@ -20,8 +20,9 @@ function myChangeHandlerI(event){
 
 
   function payWithPaystack(){
+  			
             var handler = PaystackPop.setup({
-              key: '{{paystack_public_key}}',
+              key: "{{paystack_public_key}}",
               email: '{{ request.user.email }}',
               amount: amount_input,
              

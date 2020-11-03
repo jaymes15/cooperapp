@@ -327,6 +327,7 @@ def allcontributionactiveprojectbymonth(request,  user_id):
 
 @login_required(login_url="/login/")
 def makeajocontribution(request):
+	print("hey")
 	userid = request.POST.get('userid',None)
 	transactionid = request.POST.get('transactionid',None)
 	project_id = request.POST.get('project_id',None)
@@ -338,6 +339,7 @@ def makeajocontribution(request):
 		response = requests.get('https://api.paystack.co/transaction/verify/'+transactionid, headers={
     				'Authorization': paystacksecretkey,
                   })
+		print(response.status_code)
 		if response.status_code == 200:
 			result = response.json()
 			if (result["data"]['reference'] == transactionid ) :
